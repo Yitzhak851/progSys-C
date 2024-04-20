@@ -1,0 +1,44 @@
++-----------------------------------------------------------------------------------------------
+| Checking ex2 for submission
++-----------------------------------------------------------------------------------------------
+| Step 1: checking partner file(s)
+| Looking for partner id in file /home/yitzhak.baror/exercises/ex2/PARTNER ...
+| You are submitting with alon.cory
+| Checking for partner validation in /home/alon.cory/exercises/ex2/PARTNER ...
+| Your partner alon.cory validates you as their partner
++-----------------------------------------------------------------------------------------------
+| Step 2: checking submission files and directories
+|
+| Required files:
+|   file ex2.1.sh :  found!
+|   file ex2.2.sh :  found!
+| No missing files!
+|
+| Extra files:
+|    Extra file: compareFiles.sh
+|    Extra file: submit/check_ex_ex2_2024_04_06_17_43.txt
+| Warning: Extra files will not be submitted!
++-----------------------------------------------------------------------------------------------
+| Step 3: testing your solution
+|   Testing command file ex2.1.sh
+|   V - Your file has exactly 5 lines, as required.
+|   V - line 1 is okay.
+|   V - line 2 is okay.
+|   V - line 3 is okay.
+|   V - line 4 is okay.
+|   V - line 5 is okay.
+|   Your solution to Problem 1 passed all tests.
+|   Testing command file ex2.2.sh
+|   V - Your file has exactly 5 lines, as required.
+|   V - line 1 is okay.
+|   V - line 2 is okay.
+|   V - line 3 is okay.
+|   V - line 4 is okay.
+|   V - line 5 is okay.
+|   Your solution to Problem 2 passed all tests.
+|   Your submission passed all tests, guaranteeing you grade 80-100
+|
+| If you are ready for submission, execute:
+| ==> submit_ex ex2
+|
++-----------------------------------------------------------------------------------------------
