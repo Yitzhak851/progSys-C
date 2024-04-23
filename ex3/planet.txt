@@ -1,0 +1,9 @@
+Earth, -1 our planet
+Mars, 1610
+Venus, 1610
+Mercury, -1 closest to the sun
+Neptune, 1846
+Saturn, 1610
+Pluto, 1930 planet status removed in 2006
+Uranus, 1781
+Jupiter, 1610
