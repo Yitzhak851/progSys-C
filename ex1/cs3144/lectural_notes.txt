@@ -1,0 +1,1 @@
+In this lecture we discussed the history behind unix plus some basic commands.
