@@ -5,3 +5,5 @@ mkdir classes/class02 ; cd classes/class02  # create subdirectory named class 02
 cp /share/classes/class02/* .  # copy all files in ./class02into the current dir
 
 # ls -ld => show the files contain
+
+# work with text at linux
