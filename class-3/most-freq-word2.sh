@@ -2,7 +2,6 @@ sourceDir=/share/classes/class03
 targetDir=~/classes/class03
 file=grep-examples.txt
 
-
 mkdir -p $targetDir
 cp $sourceDir/* $targetDir
 cd $targetDir
