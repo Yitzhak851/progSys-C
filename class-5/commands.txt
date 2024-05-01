@@ -1,0 +1,11 @@
+gcc --version
+
+gcc program.c >> a.exe
+
+gcc program.c -o file >> file.exe
+
+
+
+https://unstop.com/blog/how-to-run-c-program
+
+https://www.youtube.com/watch?v=9VE7p-he4fA
