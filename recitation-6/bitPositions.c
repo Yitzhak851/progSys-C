@@ -1,5 +1,4 @@
 #include <stdio.h>
-
 /*************************************************
 *  bitPositions.c
 *  --------------
@@ -8,26 +7,48 @@
 *  representation of integers
 *************************************************/
 
-/************************************************/
-/* IMPORTANT NOTE:                              */
-/* !! MODIFY CODE ONLY IN THE MARKED PLACES !!  */
-/************************************************/
-
-/********************************/
-/**    FUNCTION DECLARATIONS   **/
-/********************************/
-
 /*********************************
 * Task 1 - Recitation 06
 * computes the LSB of a given number
 *********************************/
-int getLSBpos(int);
+// bp(a)={i|a_i = 1}
+
+// bp(4)={1,0,0}     => {2}
+// bp(13)={1,1,0,1}  => {0,2,3}
+// bp(24)={1,1,0,0,0}  => {3,4}
+
+// getLSBpos(4)      => returns 2
+// getLSBpos(13)     => returns 0
+// getLSBpos(24)     => returns 3
+int getLSBpos(int a) {
+   if(!a){
+      return -1;
+   }
+   if(a&1){
+      return 0;
+   }
+   return 1 + getLSBpos(a>>1);
+}
 
 /*********************************
 * Task 2 - Recitation 06
 * computes the MSB of a given number
 *********************************/
-int getMSBpos(int);
+// bp(a)={i|a_i = 1}
+
+// bp(4)={1,0,0}     => {2}
+// bp(13)={1,1,0,1}  => {0,2,3}
+// bp(24)={1,1,0,0,0}  => {3,4}
+
+// getMSBpos(4)      => returns 2
+// getMSBpos(13)     => returns 3
+// getMSBpos(24)     => returns 4
+int getMSBpos(int a) {
+   if(!a){
+      return -1;
+   }
+   return 1 + getMSBpos((unsigned)a>>1);
+}
 
 /*********************************
 * Task 3 - Recitation 06
@@ -35,7 +56,21 @@ int getMSBpos(int);
 * in the binary representation
 * of a given number
 *********************************/
-int getNumPos(int);
+// bp(4)={1,0,0}     => {2}
+// bp(13)={1,1,0,1}  => {0,2,3}
+// bp(24)={1,1,0,0,0}  => {3,4}
+
+// getMSBpos(4)      => returns 1
+// getMSBpos(13)     => returns 3
+// getMSBpos(24)     => returns 2
+int getNumPos(int a){
+   if(!a){
+      return 0;
+   }
+   return (a&1) + getNumPos((unsigned)a>>1);
+}
+
+
 /*********************************
 * Task 4 - Recitation 07
 * computes the next bit turned on
