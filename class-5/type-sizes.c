@@ -10,6 +10,5 @@ int main() {
     printf ("        float:%3lu\n",sizeof(float));
     printf ("       double:%3lu\n",sizeof(double));
     printf ("  long double:%3lu\n",sizeof(long double));
-
     return 0;
 }
