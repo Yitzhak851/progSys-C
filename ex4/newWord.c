@@ -91,22 +91,21 @@ void printNewWord(int newWord);
 *********************************/
 int charToASI(char ch) {
    /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
+    if (ch == '.') {
+        return 1;
+    }
+    if (ch >= 'A' && ch <= 'Z') {
+        return ch - 'A' + 2;
+    }
+    if (ch >= 'a' && ch <= 'z') {
+        return ch - 'a' + 28;
+    }
+    if (ch >= '0' && ch <= '9') {
+        return ch - '0' + 54;
+    }
    /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
    /*** the function reaches this point if char is invalid ***/
     return -1;
-}
-int charToASI(char ch) {
-    if (ch == '.') {
-        return 1;
-    } else if (ch >= 'A' && ch <= 'Z') {
-        return ch - 'A' + 2;
-    } else if (ch >= 'a' && ch <= 'z') {
-        return ch - 'a' + 28;
-    } else if (ch >= '0' && ch <= '9') {
-        return ch - '0' + 54;
-    } else {
-        return -1;
-    }
 }
 /*********************************
 * Problem 1.2
