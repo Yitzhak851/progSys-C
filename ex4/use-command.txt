@@ -17,3 +17,15 @@ int main() {
     printf("%c\n", c); // Print the character
     return 0;
 }
+if (ASIval == 1) {
+        a = 0;
+    }
+    if (ASIval >= 2 && ASIval <= 27) {
+        a = 1;
+    }
+    if (ASIval >= 28 && ASIval <= 53) {
+        a = 2;
+    } else {
+        // ASIval is between 54 and 63
+        a = 3; 
+    }

@@ -5,14 +5,17 @@
 *  A program containing functions for implementing
 *  a new data type for words.
 *************************************************/
+
 /************************************************/
 /* IMPORTANT NOTE:                              */
 /* !! MODIFY CODE ONLY IN THE MARKED PLACES !!  */
 /************************************************/
+
 /********************************/
 /**    SYMBOLIC CONSTANTS      **/
 /********************************/
 #define BITS_PER_ASI_BLOCK 6
+
 /********************************/
 /**    FUNCTION DECLARATIONS   **/
 /********************************/
@@ -24,6 +27,7 @@
 * Return the ASI value corresponding to a given char.
 *********************************/
 int charToASI(char ch);
+
 /*********************************
 * Problem 1.2
 * function ASItoChar
@@ -32,6 +36,7 @@ int charToASI(char ch);
 * Return the char associated with a given ASI value.
 *********************************/
 int ASItoChar(int ASIval);
+
 /*********************************
 * Problem 1.3
 * function getASIblock
@@ -42,6 +47,7 @@ int ASItoChar(int ASIval);
 * in the word encoded by newWord.
 *********************************/
 int getASIblock(int newWord, int ind);
+
 /*********************************
 * Problem 1.4
 * function isWordFull
@@ -51,6 +57,7 @@ int getASIblock(int newWord, int ind);
 * and 0 otherwise
 *********************************/
 int isWordFull(int newWord);
+
 /*********************************
 * Problem 1.5
 * function newWordType
@@ -59,6 +66,7 @@ int isWordFull(int newWord);
 * Returns a value associated with the word type
 *********************************/
 int newWordType(int newWord);
+
 /*********************************
 * Problem 1.6
 * function appendWordChar
@@ -69,6 +77,7 @@ int newWordType(int newWord);
 * value of char ch to the end of newWord.
 *********************************/
 int appendWordChar(int newWord, char ch);
+
 /*********************************
 * Problem 1.7
 * function printNewWord
@@ -77,6 +86,7 @@ int appendWordChar(int newWord, char ch);
 * Prints new word to the screen.
 *********************************/
 void printNewWord(int newWord);
+
 /********************************/
 /**    FUNCTION DEFINITIONS    **/
 /********************************/
@@ -107,6 +117,7 @@ int charToASI(char ch) {
    /*** the function reaches this point if char is invalid ***/
     return -1;
 }
+
 /*********************************
 * Problem 1.2
 * function ASItoChar
@@ -115,38 +126,28 @@ int charToASI(char ch) {
 * Return the char associated with a given ASI value.
 * If ASI value is out of bound return '!'
 *********************************/
-int ASItoChar(int ASIval) {
+char ASItoChar(int ASIval) {
     int a, b;
     /*** replace 121 below with appropriate expression ***/
-    // If ASIval is out of bounds, return '!'
-    if (ASIval < 1 || ASIval > 63) return '!'; 
+    if (ASIval < 1 || ASIval > 63) return '!'; // If ASIval is out of bounds, return '!'
     /*** replace 122 below with appropriate expression ***/
-    if (ASIval == 1) {
-        a = 0;
-    } else if (ASIval >= 2 && ASIval <= 27) {
-        a = 1;
-    } else if (ASIval >= 28 && ASIval <= 53) {
-        a = 2;
-    } else {
-        a = 3; // ASIval is between 54 and 63
-    }
+    a = ASIval ;
     /*** replace 123 below with appropriate expression ***/
     b = ASIval;
     switch (a) {
-        case (0):
-            return '.'; // ASIval is 1
-        case (1):
+        case (0): // case 1 (".")
+            return '.'; 
+        case (1): // 2-27 (A-Z)
             /*** replace a+124 below with appropriate expression ***/
-            return 'A' + (ASIval - 2); // ASIval is between 2 and 27
-        case (2):
+            return a+124;
+        case (2): // 28-53 (a-z)
             /*** replace b+125 below with appropriate expression ***/
-            return 'a' + (ASIval - 28); // ASIval is between 28 and 53
-        case (3):
+            return b+125; 
+        case (3): // 54-63 (0-9)
             /*** replace 126 below with appropriate expression ***/
-            return '0' + (ASIval - 54); // ASIval is between 54 and 63
+            return 126;
         default:
-            /*** do nothing here, This code should not be reached ***/
-            break;
+        /*** do nothing here, This code should not be reached ***/
     } // end of switch
     /*** this code should not be reached ***/
     return '!';
