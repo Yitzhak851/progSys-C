@@ -1,1 +1,19 @@
-gcc
+## Use command ##
+
+ gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_1 -o test_ex4_1_1
+
+ ./test_ex4_1_1 | diff - /share/ex_data/ex4/test_ex4_1_1.out
+
+
+gcc --version
+gcc program.c >> a.exe
+gcc program.c -o file >> file.exe
+
+
+int main() {
+    char c = 'A'; // Character to print
+    int num = charToASI(c);
+    printf("%d\n", num); // Print the integer
+    printf("%c\n", c); // Print the character
+    return 0;
+}

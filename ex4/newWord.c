@@ -116,35 +116,10 @@ int charToASI(char ch) {
 * If ASI value is out of bound return '!'
 *********************************/
 int ASItoChar(int ASIval) {
-    int a,b;
-   /*** replace 121 below with appropriate expression ***/
-    if(121) return '!';
-   /*** replace 122 below with appropriate expression ***/
-    a = 122;
-   /*** replace 123 below with appropriate expression ***/
-    b = 123;
-    switch(a) {
-        case(0):
-            return '.';
-        case(1):
-        /*** replace a+124 below with appropriate expression ***/
-            return a+124;
-        case(2):
-        /*** replace b+125 below with appropriate expression ***/
-            return b+125;
-        case(3):
-        /*** replace 126 below with appropriate expression ***/
-            return 126;
-        default:
-        /*** do nothing here, This code should not be reached ***/
-   } // end of switch
-    /*** this code should not be reached ***/
-    return '!';
-}
-char ASItoChar(int ASIval) {
     int a, b;
     /*** replace 121 below with appropriate expression ***/
-    if (ASIval < 1 || ASIval > 63) return '!'; // If ASIval is out of bounds, return '!'
+    // If ASIval is out of bounds, return '!'
+    if (ASIval < 1 || ASIval > 63) return '!'; 
     /*** replace 122 below with appropriate expression ***/
     if (ASIval == 1) {
         a = 0;
