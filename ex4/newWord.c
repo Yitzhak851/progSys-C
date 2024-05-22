@@ -168,7 +168,7 @@ char ASItoChar(int ASIval) {
 *********************************/
 int getASIblock(int newWord, int ind) {
     /*** replace 131 below with appropriate expression (bitwise and arithmetic operators) ***/
-    return 131;
+    return (((newWord)>>(ind*BITS_PER_ASI_BLOCK))^(((newWord)>>(ind*BITS_PER_ASI_BLOCK))<<BITS_PER_ASI_BLOCK));
 }
 /*********************************
 * Problem 1.4

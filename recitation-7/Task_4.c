@@ -29,13 +29,17 @@ int getNextBitPos(int a) {
     static int last_pos = -1;
     /***        ADD CODE BELOW THIS POINT                 ***/
     /***        vvvvvvvvvvvvvvvvvvvvvvvvv                 ***/
+    printf("\na=%d, last_a=%d, last_pos=%d\n", a, last_a, last_pos);
 
     if(last_pos == -1 || last_a !=a){
         last_pos = getLSBpos(a);
         last_a = a;
     }
-    else if {
-        
+    else if (last_pos>=getMSBpos(a)) {
+        last_pos = -1;
+    }
+    else {
+        last_pos += (1+ getLSBpos(a>>(last_pos+1)));
     }
 
 

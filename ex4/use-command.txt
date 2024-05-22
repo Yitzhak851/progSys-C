@@ -2,10 +2,11 @@
 
 gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_1 -o test_ex4_1_1
 gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_2 -o test_ex4_1_2
+gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_3 -o test_ex4_1_3
 
 ./test_ex4_1_1 | diff - /share/ex_data/ex4/test_ex4_1_1.out
 ./test_ex4_1_2 | diff - /share/ex_data/ex4/test_ex4_1_2.out
-
+./test_ex4_1_3 | diff - /share/ex_data/ex4/test_ex4_1_3.out
 
 gcc --version
 gcc program.c >> a.exe

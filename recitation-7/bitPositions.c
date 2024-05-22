@@ -15,14 +15,8 @@
 * Task 1 - Recitation 06
 * computes the LSB of a given number
 *********************************/
-// bp(a)={i|a_i = 1}
-// bp(4)={1,0,0}     => {2}
-// bp(13)={1,1,0,1}  => {0,2,3}
-// bp(24)={1,1,0,0,0}  => {3,4}
-// getLSBpos(4)      => returns 2
-// getLSBpos(13)     => returns 0
-// getLSBpos(24)     => returns 3
 int getLSBpos(int a);
+
 /*********************************
 * Task 2 - Recitation 06
 * computes the MSB of a given number
