@@ -131,27 +131,29 @@ char ASItoChar(int ASIval) {
     /*** replace 121 below with appropriate expression ***/
     if (ASIval < 1 || ASIval > 63) return '!'; // If ASIval is out of bounds, return '!'
     /*** replace 122 below with appropriate expression ***/
-    a = ASIval ;
+    a = (ASIval == 1) ? 0 : (ASIval >= 2 && ASIval <= 27) ? 1 : (ASIval >= 28 && ASIval <= 53) ? 2 : 3;
     /*** replace 123 below with appropriate expression ***/
-    b = ASIval;
+    b = (a == 0) ? 0 : (a == 1) ? ASIval - 2 : (a == 2) ? ASIval - 28 : ASIval - 54;
     switch (a) {
         case (0): // case 1 (".")
-            return '.'; 
-        case (1): // 2-27 (A-Z)
+            return '.';
+        case (1): // ASI:[2-27] (A-Z) ASCII:[65-90]
             /*** replace a+124 below with appropriate expression ***/
-            return a+124;
-        case (2): // 28-53 (a-z)
+            return b + 'A';  
+        case (2): // ASI:[28-53] (a-z) ASCII:[97-122]
             /*** replace b+125 below with appropriate expression ***/
-            return b+125; 
-        case (3): // 54-63 (0-9)
+            return b + 'a'; 
+        case (3): // ASI:[54-63] (0-9) ASCII:[48-57]
             /*** replace 126 below with appropriate expression ***/
-            return 126;
+            return b + '0';
         default:
         /*** do nothing here, This code should not be reached ***/
+            break;
     } // end of switch
     /*** this code should not be reached ***/
     return '!';
 }
+
 /*********************************
 * Problem 1.3
 * function getASIblock
@@ -177,8 +179,8 @@ int getASIblock(int newWord, int ind) {
 * and 0 otherwise
 *********************************/
 int isWordFull(int newWord) {
-   /*** replace 141 below with appropriate expression ***/
-   return 141;
+    /*** replace 141 below with appropriate expression ***/
+    return 141;
 }
 
 /*********************************
