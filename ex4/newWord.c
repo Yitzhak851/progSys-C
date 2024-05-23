@@ -170,6 +170,7 @@ int getASIblock(int newWord, int ind) {
     /*** replace 131 below with appropriate expression (bitwise and arithmetic operators) ***/
     return (((newWord)>>(ind*BITS_PER_ASI_BLOCK))^(((newWord)>>(ind*BITS_PER_ASI_BLOCK))<<BITS_PER_ASI_BLOCK));
 }
+
 /*********************************
 * Problem 1.4
 * function isWordFull
@@ -180,7 +181,7 @@ int getASIblock(int newWord, int ind) {
 *********************************/
 int isWordFull(int newWord) {
     /*** replace 141 below with appropriate expression ***/
-    return 141;
+    return !!(getASIblock(newWord,((8*(sizeof(int))/BITS_PER_ASI_BLOCK)-1)));
 }
 
 /*********************************
