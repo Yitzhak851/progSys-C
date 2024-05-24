@@ -196,13 +196,13 @@ int isWordFull(int newWord) {
 * - 3 for word made up of letters and digits
 *********************************/
 int newWordType(int newWord) {
-   int ASIval=0, ind=0, type=ASIval;
-   /*** loop until reaching ASI value 0 ***/
-   for(ind=0; ind*BITS_PER_ASI_BLOCK<8*sizeof(int); ind++) {
-   /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
-   /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
-   } // end of for
-   return type;
+    int ASIval=0, ind=0, type=ASIval;
+    /*** loop until reaching ASI value 0 ***/
+    for(ind=0; ind*BITS_PER_ASI_BLOCK<8*sizeof(int); ind++) {
+    /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
+    /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
+    } // end of for
+    return type;
 }
 
 /*********************************
@@ -218,9 +218,9 @@ int newWordType(int newWord) {
 * can be appended
 *********************************/
 int appendWordChar(int newWord, char ch) {
-   /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
-   return 161;
-   /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
+    /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
+    return 161;
+    /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
 }
 
 /*********************************
@@ -232,10 +232,9 @@ int appendWordChar(int newWord, char ch) {
 * If last character is '.', prints a newline after it
 *********************************/
 void printNewWord(int newWord) {
-   /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
-   /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
-   return;
+    /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
+    /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
+    return;
 }
 
 /*** end of file ***/
-
