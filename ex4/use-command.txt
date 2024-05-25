@@ -1,7 +1,10 @@
 ## Use command ##
 
+/*=====================================================*/
+/*================= ## Compilation ## =================*/
+/*=====================================================*/
 
-## Compilation ##
+/*--------------------- Problem_1 ---------------------*/
 gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_1 -o test_ex4_1_1
 gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_2 -o test_ex4_1_2
 gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_3 -o test_ex4_1_3
@@ -9,9 +12,14 @@ gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_4 -o test_ex4_1_4
 gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_5 -o test_ex4_1_5
 gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_6 -o test_ex4_1_6
 gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_7 -o test_ex4_1_7
+/*--------------------- Problem_2 ---------------------*/
+gcc -Wall newWordParser.c newWord.c -o newWordParser
 
+/*=====================================================*/
+/*=================== ## running ## ===================*/
+/*=====================================================*/
 
-## running ##
+/*--------------------- Problem_1 ---------------------*/
 ./test_ex4_1_1 | diff - /share/ex_data/ex4/test_ex4_1_1.out
 ./test_ex4_1_2 | diff - /share/ex_data/ex4/test_ex4_1_2.out
 ./test_ex4_1_3 | diff - /share/ex_data/ex4/test_ex4_1_3.out
@@ -19,31 +27,14 @@ gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_7 -o test_ex4_1_7
 ./test_ex4_1_5 | diff - /share/ex_data/ex4/test_ex4_1_5.out
 ./test_ex4_1_6 | diff - /share/ex_data/ex4/test_ex4_1_6.out
 ./test_ex4_1_7 | diff - /share/ex_data/ex4/test_ex4_1_7.out
+/*--------------------- Problem_2 ---------------------*/
+echo "How is everyone doing?We hope you're 100%.$" | ./newWordParser
+echo "one 2 thr33. 4.4 f1ve six.7 eight nine.Ten$" | ./newWordParser
+echo "Good.luck.everyone.Hope.you.enjoyed.your.1st.assignment.in.C$" \ | ./newWordParser
 
 
-
+check_ex ex4
 
 gcc --version
 gcc program.c >> a.exe
 gcc program.c -o file >> file.exe
-
-
-int main() {
-    char c = 'A'; // Character to print
-    int num = charToASI(c);
-    printf("%d\n", num); // Print the integer
-    printf("%c\n", c); // Print the character
-    return 0;
-}
-if (ASIval == 1) {
-        a = 0;
-    }
-    if (ASIval >= 2 && ASIval <= 27) {
-        a = 1;
-    }
-    if (ASIval >= 28 && ASIval <= 53) {
-        a = 2;
-    } else {
-        // ASIval is between 54 and 63
-        a = 3; 
-    }
