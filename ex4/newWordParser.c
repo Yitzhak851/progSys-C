@@ -35,20 +35,25 @@ void printNewWord(int newWord);
 *********************************/
 int main() {
    /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
+
     int newWord = 0;
-    int numType1 = 0; // Number of words with only letters (and periods)
-    int numType2 = 0; // Number of words with only digits (and periods)
-    int numType3 = 0; // Number of mixed words (letters and digits)
+    int numType1 = 0; // num of words with only letters (and periods)
+    int numType2 = 0; // num of words with only digits (and periods)
+    int numType3 = 0; // num of mixed words (letters and digits)
     int wordType;
+    //int nextWord;
     char ch;
-        while (scanf("%c", &ch) == 1) {
+
+    while (scanf("%c", &ch) == 1) {
         if (ch == '$') {
             break;
         }
-        int ASIval = charToASI(ch);
-        if (ASIval == -1 || isWordFull(newWord)) {
-            // Print the current word
-            printNewWord(newWord);            
+
+        //nextWord = appendWordChar(newWord,ch);
+        
+        if (ASIval == -1 || isWordFull(newWord) ) {
+            // print the current word
+            printNewWord(newWord);
             // Determine the type of the word and update the counters
             wordType = newWordType(newWord);
             if (wordType == 1) {
@@ -67,7 +72,8 @@ int main() {
         }
         // Append the character to the current word
         newWord = appendWordChar(newWord, ch);
-    }
+    }// end of while
+
     // print the last word if it exists
     if (newWord != 0) {
         printNewWord(newWord);
@@ -80,6 +86,7 @@ int main() {
             numType3++;
         }
     }
+
     // print the statistics
     printf("Number of words is %d\n", numType1);
     printf("Number of numbers is %d\n", numType2);

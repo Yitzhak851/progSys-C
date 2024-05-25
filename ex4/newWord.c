@@ -103,14 +103,11 @@ int charToASI(char ch) {
    /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
     if (ch == '.') {
         return 1;
-    }
-    if (ch >= 'A' && ch <= 'Z') {
+    } else if (ch >= 'A' && ch <= 'Z') {
         return ch - 'A' + 2;
-    }
-    if (ch >= 'a' && ch <= 'z') {
+    } else if (ch >= 'a' && ch <= 'z') {
         return ch - 'a' + 28;
-    }
-    if (ch >= '0' && ch <= '9') {
+    } else if (ch >= '0' && ch <= '9') {
         return ch - '0' + 54;
     }
    /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
@@ -131,15 +128,15 @@ char ASItoChar(int ASIval) {
     /*** replace 121 below with appropriate expression ***/
     if (ASIval < 1 || ASIval > 63) return '!'; // If ASIval is out of bounds, return '!'
     /*** replace 122 below with appropriate expression ***/
-    a = (ASIval == 1) ? 0 : (ASIval >= 2 && ASIval <= 27) ? 1 : (ASIval >= 28 && ASIval <= 53) ? 2 : 3;
+    a = ((ASIval == 1) ? 0 : (ASIval >= 2 && ASIval <= 27) ? 1 : (ASIval >= 28 && ASIval <= 53) ? 2 : 3);
     /*** replace 123 below with appropriate expression ***/
-    b = (a == 0) ? 0 : (a == 1) ? ASIval - 2 : (a == 2) ? ASIval - 28 : ASIval - 54;
+    b = ((a == 0) ? 0 : (a == 1) ? ASIval - 2 : (a == 2) ? ASIval - 28 : ASIval - 54);
     switch (a) {
         case (0): // case 1 (".")
             return '.';
         case (1): // ASI:[2-27] (A-Z) ASCII:[65-90]
             /*** replace a+124 below with appropriate expression ***/
-            return b + 'A';  
+            return a + 'A';  
         case (2): // ASI:[28-53] (a-z) ASCII:[97-122]
             /*** replace b+125 below with appropriate expression ***/
             return b + 'a'; 
@@ -168,8 +165,9 @@ char ASItoChar(int ASIval) {
 *********************************/
 int getASIblock(int newWord, int ind) {
     /*** replace 131 below with appropriate expression (bitwise and arithmetic operators) ***/
-    return (((newWord)>>(ind*BITS_PER_ASI_BLOCK))^(((newWord)>>(ind*BITS_PER_ASI_BLOCK))<<BITS_PER_ASI_BLOCK));
+    return (newWord>>ind*BITS_PER_ASI_BLOCK)%(1<<BITS_PER_ASI_BLOCK);
 }
+
 
 /*********************************
 * Problem 1.4
