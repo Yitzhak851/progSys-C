@@ -1,14 +1,27 @@
 ## Use command ##
 
+
+## Compilation ##
 gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_1 -o test_ex4_1_1
 gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_2 -o test_ex4_1_2
 gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_3 -o test_ex4_1_3
 gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_4 -o test_ex4_1_4
+gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_5 -o test_ex4_1_5
+gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_6 -o test_ex4_1_6
+gcc /share/ex_data/ex4/test_ex4.c newWord.c -Wall -D TEST_1_7 -o test_ex4_1_7
 
+
+## running ##
 ./test_ex4_1_1 | diff - /share/ex_data/ex4/test_ex4_1_1.out
 ./test_ex4_1_2 | diff - /share/ex_data/ex4/test_ex4_1_2.out
 ./test_ex4_1_3 | diff - /share/ex_data/ex4/test_ex4_1_3.out
 ./test_ex4_1_4 | diff - /share/ex_data/ex4/test_ex4_1_4.out
+./test_ex4_1_5 | diff - /share/ex_data/ex4/test_ex4_1_5.out
+./test_ex4_1_6 | diff - /share/ex_data/ex4/test_ex4_1_6.out
+./test_ex4_1_7 | diff - /share/ex_data/ex4/test_ex4_1_7.out
+
+
+
 
 gcc --version
 gcc program.c >> a.exe

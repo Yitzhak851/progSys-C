@@ -200,10 +200,31 @@ int newWordType(int newWord) {
     /*** loop until reaching ASI value 0 ***/
     for(ind=0; ind*BITS_PER_ASI_BLOCK<8*sizeof(int); ind++) {
     /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
+        ASIval = getASIblock(newWord, ind);
+        if (ASIval == 0) {
+            break;
+        }
+        if (ASIval == 1) {
+            continue; // Ignore period characters
+        }
+        if (ASIval >= 2 && ASIval <= 53) {
+            if (type == 2) {
+                type = 3; // Found both letters and digits
+            } else {
+                type = 1; // Found letters
+            }
+        } else if (ASIval >= 54 && ASIval <= 63) {
+            if (type == 1) {
+                type = 3; // Found both letters and digits
+            } else {
+                type = 2; // Found digits
+            }
+        }
     /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
     } // end of for
     return type;
 }
+
 
 /*********************************
 * Problem 1.6
@@ -219,7 +240,22 @@ int newWordType(int newWord) {
 *********************************/
 int appendWordChar(int newWord, char ch) {
     /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
-    return 161;
+    int ASIval = charToASI(ch);
+    if (ASIval == -1) {
+        return newWord; // Invalid character
+    }
+    int ind = 0;
+    while (getASIblock(newWord, ind) != 0 && ind * BITS_PER_ASI_BLOCK < 8 * sizeof(int)) {
+        ind++;
+    }
+    if (ind * BITS_PER_ASI_BLOCK >= 8 * sizeof(int)) {
+        return newWord; // Word is full
+    }
+    // Check if it's trying to append a non-period character to the final block
+    if (ind * BITS_PER_ASI_BLOCK + BITS_PER_ASI_BLOCK >= 8 * sizeof(int) && ASIval != 1) {
+        return newWord; // Only allow periods in the final block
+    }
+    return newWord | (ASIval << (ind * BITS_PER_ASI_BLOCK));
     /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
 }
 
@@ -233,6 +269,27 @@ int appendWordChar(int newWord, char ch) {
 *********************************/
 void printNewWord(int newWord) {
     /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
+    int ASIval = 0, ind = 0;
+    char ch;
+    int lastCharPeriod = 0;
+    for (ind = 0; ind * BITS_PER_ASI_BLOCK < 8 * sizeof(int); ind++) {
+        ASIval = getASIblock(newWord, ind);
+        if (ASIval == 0) {
+            break;
+        }
+        ch = ASItoChar(ASIval);
+        printf("%c", ch);
+        if (ch == '.') {
+            lastCharPeriod = 1;
+        } else {
+            lastCharPeriod = 0;
+        }
+    }
+    if (lastCharPeriod) {
+        printf("\n");
+    } else {
+        printf(" ");
+    }
     /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
     return;
 }
