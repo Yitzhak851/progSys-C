@@ -201,21 +201,22 @@ int newWordType(int newWord) {
         ASIval = getASIblock(newWord, ind);
         if (ASIval == 0) {
             break;
+        } else if (ASIval == 1) {
+            continue; // ignore period characters
         }
-        if (ASIval == 1) {
-            continue; // Ignore period characters
-        }
+        // isLetters
         if (ASIval >= 2 && ASIval <= 53) {
-            if (type == 2) {
-                type = 3; // Found both letters and digits
+            if (type == 2 || type == 3) {
+                type = 3; // isLetters && isDigits
             } else {
-                type = 1; // Found letters
+                type = 1; // isLetters
             }
+        // isDigits
         } else if (ASIval >= 54 && ASIval <= 63) {
             if (type == 1) {
-                type = 3; // Found both letters and digits
+                type = 3; // isLetters && isDigits
             } else {
-                type = 2; // Found digits
+                type = 2; // isDigits
             }
         }
     /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
