@@ -35,27 +35,19 @@ void printNewWord(int newWord);
 *********************************/
 int main() {
    /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
-
     int newWord = 0;
-    int numType1 = 0; // num of words with only letters (and periods)
-    int numType2 = 0; // num of words with only digits (and periods)
-    int numType3 = 0; // num of mixed words (letters and digits)
+    int numType1 = 0; // num wordsWithOnlyLetters (and periods)
+    int numType2 = 0; // num wordsWithOnlyDigits (and periods)
+    int numType3 = 0; // num mixedWords (letters and digits)
     int wordType;
-    //int nextWord;
     char ch;
 
     while (scanf("%c", &ch) == 1) {
         if (ch == '$') {
             break;
-        }
-
-        //nextWord = appendWordChar(newWord,ch);
-        
-        if (ASIval == -1 || isWordFull(newWord) ) {
-            // print the current word
-            printNewWord(newWord);
-            // Determine the type of the word and update the counters
-            wordType = newWordType(newWord);
+        } else if (charToASI(ch) == 1 || isWordFull(newWord) ) {
+            printNewWord(newWord);      // print currentWord
+            wordType = newWordType(newWord);  // set typeOfWord && updateCounters
             if (wordType == 1) {
                 numType1++;
             } else if (wordType == 2) {
@@ -63,18 +55,15 @@ int main() {
             } else if (wordType == 3) {
                 numType3++;
             }
-            // Reset the newWord for the next word
-            newWord = 0;
-            // If current character cannot be encoded, skip to next character
-            if (ASIval == -1) {
+            newWord = 0;  // Reset the newWord for the next word
+            // if currentChar cannot be encoded, skipToNextChar
+            if (charToASI(ch) == 1) {
                 continue;
             }
         }
-        // Append the character to the current word
         newWord = appendWordChar(newWord, ch);
     }// end of while
 
-    // print the last word if it exists
     if (newWord != 0) {
         printNewWord(newWord);
         wordType = newWordType(newWord);
@@ -87,7 +76,7 @@ int main() {
         }
     }
 
-    // print the statistics
+    printf("\n");
     printf("Number of words is %d\n", numType1);
     printf("Number of numbers is %d\n", numType2);
     printf("Number of mixed words is %d\n", numType3);

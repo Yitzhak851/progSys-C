@@ -33,8 +33,35 @@ echo "one 2 thr33. 4.4 f1ve six.7 eight nine.Ten$" | ./newWordParser
 echo "Good.luck.everyone.Hope.you.enjoyed.your.1st.assignment.in.C$" \ | ./newWordParser
 
 
+
+|   2   - executing program with input arguments: one 2 thr33. 4.4 f1ve six.7 eight nine.Ten$
+|         unexpected output. Expected vs. actual output shown below side by side (lines with diff have | or < or > in the middle):
+one 2 thr33.                                                    one 2 thr33.
+4.4 f1ve six.7 eight nine.                                      4.4 f1ve six.7 eight nine.
+Ten                                                             Ten
+Number of words is 4                                            Number of words is 4
+Number of numbers is 2                                        | Number of numbers is 3
+Number of mixed words is 3                                    | Number of mixed words is 2
+
+gcc -Wall newWordParserTest.c -o newWordParserTest
+echo "one 2 thr33. 4.4 f1ve six.7 eight nine.Ten$" | ./newWordParserTest
+
+
+
+
+
+
 check_ex ex4
 
 gcc --version
 gcc program.c >> a.exe
 gcc program.c -o file >> file.exe
+
+
+// 1.1 => int charToASI(char ch);
+// 1.2 => int ASItoChar(int ASIval);
+// 1.3 => int getASIblock(int newWord, int ind);
+// 1.4 => int isWordFull(int newWord);
+// 1.5 => int newWordType(int newWord);
+// 1.6 => int appendWordChar(int newWord, char ch);
+// 1.7 => void printNewWord(int newWord);
