@@ -46,6 +46,8 @@ Number of mixed words is 3                                    | Number of mixed 
 gcc -Wall newWordParserTest.c -o newWordParserTest
 echo "one 2 thr33. 4.4 f1ve six.7 eight nine.Ten$" | ./newWordParserTest
 
+thr33.  ==>   isNum==
+
 
 
 

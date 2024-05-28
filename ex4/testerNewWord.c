@@ -1,27 +1,14 @@
 #include <stdio.h>
-/*************************************************
-*  newWord.c = A program containing functions for 
-*  implementing a new data type for words.
-*************************************************/
 #define BITS_PER_ASI_BLOCK 6
-int charToASI(char ch);
-int ASItoChar(int ASIval);
-int getASIblock(int newWord, int ind);
-int isWordFull(int newWord);
-int newWordType(int newWord);
-int appendWordChar(int newWord, char ch);
+
+int  charToASI(char ch);
+char ASItoChar(int ASIval);
+int  getASIblock(int newWord, int ind);
+int  isWordFull(int newWord);
+int  newWordType(int newWord);
+int  appendWordChar(int newWord, char ch);
 void printNewWord(int newWord);
-/********************************/
-/**    FUNCTION DEFINITIONS    **/
-/********************************/
-/*********************************
-* Problem 1.1
-* function charToASI
-* params: ch (char)
-* Return the ASI value corresponding to a given char.
-* If char is not a letter, digit, '.' or '\0'
-* the function returns -1
-*********************************/
+
 int charToASI(char ch) {
     if (ch == '.') {
         return 1;
@@ -32,16 +19,9 @@ int charToASI(char ch) {
     } else if (ch >= '0' && ch <= '9') {
         return ch - '0' + 54;
     }
-   /*** the function reaches this point if char is invalid ***/
     return -1;
 }
-/*********************************
-* Problem 1.2
-* function ASItoChar
-* params: ASIval (int)
-* Return the char associated with a given ASI value.
-* If ASI value is out of bound return '!'
-*********************************/
+
 char ASItoChar(int ASIval) {
     int a, b;
     if (ASIval < 1 || ASIval > 63) return '!'; // If ASIval is out of bounds, return '!'
@@ -51,9 +31,9 @@ char ASItoChar(int ASIval) {
         case (0): // case 1 (".")
             return '.';
         case (1): // ASI:[2-27] (A-Z) ASCII:[65-90]
-            return a + 'A';  
+            return a + 'A';
         case (2): // ASI:[28-53] (a-z) ASCII:[97-122]
-            return b + 'a'; 
+            return b + 'a';
         case (3): // ASI:[54-63] (0-9) ASCII:[48-57]
             return b + '0';
         default:
@@ -61,42 +41,17 @@ char ASItoChar(int ASIval) {
     } // end of switch
     return '!';
 }
-/*********************************
-* Problem 1.3
-* function getASIblock
-* params: newWord (int), ind (int)
-* Return the ASI value of the charInd'th char
-* in the word encoded by newWord.
-* Indices are 0-based, and if charInd exceeds
-* the maximum number of chars in a word,
-* the function returns 0
-*********************************/
+
 int getASIblock(int newWord, int ind) {
     return (newWord>>ind*BITS_PER_ASI_BLOCK)%(1<<BITS_PER_ASI_BLOCK);
 }
-/*********************************
-* Problem 1.4
-* function isWordFull
-* params: newWord (int)
-* Return 1 if last ASI block of newWord is used
-* and 0 otherwise
-*********************************/
+
 int isWordFull(int newWord) {
     return !!(getASIblock(newWord,((8*(sizeof(int))/BITS_PER_ASI_BLOCK)-1)));
 }
-/*********************************
-* Problem 1.5
-* function newWordType
-* params: newWord (int)
-* Returns a value associated with the word type:
-* - 0 for word with only '.'
-* - 1 for word made up of letters (and .)
-* - 2 for word made up of digits (and .)
-* - 3 for word made up of letters and digits
-*********************************/
+
 int newWordType(int newWord) {
     int ASIval=0, ind=0, type=ASIval;
-    /*** loop until reaching ASI value 0 ***/
     for(ind=0; ind*BITS_PER_ASI_BLOCK<8*sizeof(int); ind++) {
         ASIval = getASIblock(newWord, ind);
         if (ASIval == 0) {
@@ -113,7 +68,7 @@ int newWordType(int newWord) {
             }
         // isDigits
         } else if (ASIval >= 54 && ASIval <= 63) {
-            if (type == 1) {
+            if (type == 1 || type == 3) {
                 type = 3; // isLetters && isDigits
             } else {
                 type = 2; // isDigits
@@ -122,16 +77,7 @@ int newWordType(int newWord) {
     } // end of for
     return type;
 }
-/*********************************
-* Problem 1.6
-* function appendWordChar
-* params: newWord (int), ch (char)
-* Return the new word obtained by adding the ASI
-* value of char ch to the end of newWord.
-* If newWord is full, then return original newWord.
-* In the final partial block, only a '.'
-* can be appended
-*********************************/
+
 int appendWordChar(int newWord, char ch) {
     int ASIval = charToASI(ch);
     if (ASIval == -1) {
@@ -150,13 +96,7 @@ int appendWordChar(int newWord, char ch) {
     }
     return newWord | (ASIval << (ind * BITS_PER_ASI_BLOCK));
 }
-/*********************************
-* Problem 1.7
-* function printNewWord
-* params: newWord (int)
-* Prints new word to the screen.
-* If last character is '.', prints a newline after it
-*********************************/
+
 void printNewWord(int newWord) {
     int ASIval = 0, ind = 0;
     char ch;
@@ -181,4 +121,42 @@ void printNewWord(int newWord) {
     }
     return;
 }
-/*** end of file ***/
+
+int main() {
+        int newWord = 0;  // newWord
+        int numType1 = 0; // num wordsWithOnlyLetters (and periods)
+        int numType2 = 0; // num wordsWithOnlyDigits (and periods)
+        int numType3 = 0; // num mixedWords (letters and digits)
+        int wordType;     // 1 or 2 or 3
+        char ch;          // input from scanf
+        int tmpWord = 0; //tempWord
+        do {
+                scanf("%c", &ch);
+                tmpWord = appendWordChar(newWord, ch);
+                if (newWord != tmpWord) {
+                        newWord = tmpWord;
+                } else {
+                        wordType = newWordType(newWord);
+                        if (wordType == 1) {
+                                numType1++;
+                                printf("\nNumber of numType1 is:%d \n", numType1);
+                        } else if (wordType == 2) {
+                                numType2++;
+                                printf("\nNumber of numType2 is:%d \n", numType2);
+                        } else if (wordType == 3) {
+                                numType3++;
+                                printf("\nNumber of numType3 is:%d \n", numType3);
+                        }
+                        if(newWord != 0){
+                                printNewWord(newWord);
+                                newWord = appendWordChar(0, ch);
+                        }
+                }
+                if(ch == '$'){
+                        printf("\nNumber of words is %d\n", numType1);
+                        printf("Number of numbers is %d\n", numType2);
+                        printf("Number of mixed words is %d\n", numType3);
+                }
+        } while(ch != '$');
+        return 0;
+} //end main method
