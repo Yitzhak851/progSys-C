@@ -213,7 +213,7 @@ int newWordType(int newWord) {
             }
         // isDigits
         } else if (ASIval >= 54 && ASIval <= 63) {
-            if (type == 1) {
+            if (type == 1 || type == 3) {
                 type = 3; // isLetters && isDigits
             } else {
                 type = 2; // isDigits

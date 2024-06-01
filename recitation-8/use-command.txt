@@ -1,0 +1,8 @@
+cp /share/recitation08/* ~/recitation/recitation8/
+
+gcc strings.c -o test_strings
+gcc stringExample.c -o test_stringExample
+
+
+./test_strings
+./test_stringExample

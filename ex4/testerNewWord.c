@@ -122,41 +122,96 @@ void printNewWord(int newWord) {
     return;
 }
 
-int main() {
-        int newWord = 0;  // newWord
-        int numType1 = 0; // num wordsWithOnlyLetters (and periods)
-        int numType2 = 0; // num wordsWithOnlyDigits (and periods)
-        int numType3 = 0; // num mixedWords (letters and digits)
-        int wordType;     // 1 or 2 or 3
-        char ch;          // input from scanf
-        int tmpWord = 0; //tempWord
-        do {
-                scanf("%c", &ch);
-                tmpWord = appendWordChar(newWord, ch);
-                if (newWord != tmpWord) {
-                        newWord = tmpWord;
+
+
+    int main() {
+    char ch;
+    int newWord = 0;
+    int numLetters = 0;
+    int numDigit = 0;
+    int numMixed = 0;
+
+    while (1) {
+        scanf("%c", &ch);
+        if (getASIblock(newWord, 0) != 0) {
+            newWord = appendWordChar(newWord, ch);
+            if (isWordFull(newWord)) {
+                printNewWord(newWord);
+                int type = newWordType(newWord);
+                if (type == 1) {
+                    printf("\nNumber of numType1 is:%d \n", numLetters);
+                    numLetters++;
+                } else if (type == 2) {
+                    printf("\nNumber of numType1 is:%d \n", numDigit);
+                    numDigit++;
                 } else {
-                        wordType = newWordType(newWord);
-                        if (wordType == 1) {
-                                numType1++;
-                                printf("\nNumber of numType1 is:%d \n", numType1);
-                        } else if (wordType == 2) {
-                                numType2++;
-                                printf("\nNumber of numType2 is:%d \n", numType2);
-                        } else if (wordType == 3) {
-                                numType3++;
-                                printf("\nNumber of numType3 is:%d \n", numType3);
-                        }
-                        if(newWord != 0){
-                                printNewWord(newWord);
-                                newWord = appendWordChar(0, ch);
-                        }
+                    printf("\nNumber of numType1 is:%d \n", numMixed);
+                    numMixed++;
                 }
-                if(ch == '$'){
-                        printf("\nNumber of words is %d\n", numType1);
-                        printf("Number of numbers is %d\n", numType2);
-                        printf("Number of mixed words is %d\n", numType3);
+                newWord = 0;
+            }
+        } else if (ch == '$') {
+            // Print the last word if any
+            if (newWord != 0) {
+                printNewWord(newWord);
+                int type = newWordType(newWord);
+                if (type == 1) {
+                    printf("\nNumber of numType1 is:%d \n", numLetters);
+                    numLetters++;
+                } else if (type == 2) {
+                    printf("\nNumber of numType1 is:%d \n", numDigit);
+                    numDigit++;
+                } else {
+                    printf("\nNumber of numType1 is:%d \n", numMixed);
+                    numMixed++;
                 }
-        } while(ch != '$');
-        return 0;
-} //end main method
+            }
+            printf("Number of words is %d\n", numLetters);
+            printf("Number of numbers is %d\n", numDigit);
+            printf("Number of mixed words is %d\n", numMixed);
+            break;
+        }
+    }
+    return 0;
+}
+
+// int main() {
+//         int newWord = 0;  // newWord
+//         int numType1 = 0; // num wordsWithOnlyLetters (and periods)
+//         int numType2 = 0; // num wordsWithOnlyDigits (and periods)
+//         int numType3 = 0; // num mixedWords (letters and digits)
+//         int wordType;     // 1 or 2 or 3
+//         char ch;          // input from scanf
+//         int tmpWord = 0; //tempWord
+//         do {
+//                 scanf("%c", &ch);
+//                 tmpWord = appendWordChar(newWord, ch);
+//                 if (newWord != tmpWord) {
+//                         newWord = tmpWord;
+//                 } else {
+//                         wordType = newWordType(newWord);
+//                         if (wordType == 1) {
+//                                 numType1++;
+//                                 printf("\nNumber of numType1 is:%d \n", numType1);
+//                         } else if (wordType == 2) {
+//                                 numType2++;
+//                                 printf("\nNumber of numType2 is:%d \n", numType2);
+//                         } else if (wordType == 3) {
+//                                 numType3++;
+//                                 printf("\nNumber of numType3 is:%d \n", numType3);
+//                         }
+//                         if(newWord != 0){
+//                                 printNewWord(newWord);
+//                                 newWord = appendWordChar(0, ch);
+//                         }
+//                 }
+//                 if(ch == '$'){
+//                         printf("\nNumber of words is %d\n", numType1);
+//                         printf("Number of numbers is %d\n", numType2);
+//                         printf("Number of mixed words is %d\n", numType3);
+//                 }
+//         } while(ch != '$');
+//         return 0;
+// } //end main method
+
+

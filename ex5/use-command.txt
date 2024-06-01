@@ -1,0 +1,53 @@
+## Use command ##
+// Copy-folder
+{
+    /*=====================================================*/
+    /*================= ## Copy folder ## =================*/
+    /*=====================================================*/
+    cp /share/ex_data/ex5/* ~/exercises/ex5/
+}
+
+// Compilation
+{
+    /*=====================================================*/
+    /*================= ## Compilation ## =================*/
+    /*=====================================================*/
+    /*--------------------- Problem_1 ---------------------*/
+    gcc /share/ex_data/ex5/test_ex5.c numList.c -Wall -D TEST_1_1 -o test_ex5_1_1
+    gcc /share/ex_data/ex5/test_ex5.c numList.c -Wall -D TEST_1_2 -o test_ex5_1_2
+    gcc /share/ex_data/ex5/test_ex5.c numList.c -Wall -D TEST_1_3 -o test_ex5_1_3 
+    gcc ..
+    gcc ..
+    gcc ..
+}
+
+// Running 
+{
+    /*=====================================================*/
+    /*=================== ## Running ## ===================*/
+    /*=====================================================*/
+    /*--------------------- Problem_1 ---------------------*/
+    ./test_ex5_1_1 | diff - /share/ex_data/ex5/test_ex5_1_1.out 
+    ./test_ex5_1_2 | diff - /share/ex_data/ex5/test_ex5_1_2.out 
+    ./test_ex5_1_3 | diff - /share/ex_data/ex5/test_ex5_1_3.out 
+    ./
+    ./
+    ./
+}
+
+// Quick-jump
+{
+    /*=====================================================*/
+    /*=================== ## Quick jump ## ================*/
+    /*=====================================================*/
+    /*--------------------- Problem_1 ---------------------*/
+    // line 107: * Problem 1.1 : int isValidNumList(const char* str);
+    // line 153: * Problem 1.2 : int numWordsInList(const char* str);
+    // line 190: * Problem 1.3 : double get1stNumberValue(const char* numList);
+    // line 228: * Problem 1.4 : ...
+    // line 247: * Problem 1.5 : ...
+    // line 271: * Problem 1.6 : ...
+
+}
+
+ 
