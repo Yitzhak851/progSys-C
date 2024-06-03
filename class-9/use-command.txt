@@ -1,0 +1,18 @@
+
+// ========= Dynamic memory allocation
+{
+
+    #include <stdlib.h>
+
+    free()
+
+    malloc, calloc, realloc
+}
+
+1. בקשת הקצאה
+2. שימוש
+3. שיחרור
+
+./dynam_TEST *&^
+./dynam_TEST hello
+./dynam_TEST 2
