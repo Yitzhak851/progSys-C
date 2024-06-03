@@ -157,6 +157,39 @@ double get1stNumberValue(const char* numList) {
 *********************************/
 char* compactNumList(char* numList) {
    /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
+    char* src = numList;
+    char* dest = numList;
+    int inWord = 0;
+    while (*src != '\0') {
+        // Skip leading spaces
+        while (*src == ' ') {
+            src++;
+        }
+        // Start processing a word
+        while (*src != ' ' && *src != '\0') {
+            // Skip leading zeros in the word
+            if (inWord == 0 && *src == '0') {
+                src++;
+                continue;
+            }
+            inWord = 1;
+            *dest++ = *src++;
+        }
+        // End of a word
+        if (inWord) {
+            inWord = 0;
+            // Add a single space if the next character is not the end of the string
+            if (*src != '\0') {
+                *dest++ = ' ';
+            }
+        }
+    }
+    // Remove trailing space if any
+    if (dest != numList && *(dest - 1) == ' ') {
+        dest--;
+    }
+    // Null-terminate the resulting string
+    *dest = '\0';
    /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
    return numList;
 }
