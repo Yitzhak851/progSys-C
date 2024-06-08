@@ -1,0 +1,34 @@
+    // Algorithem:
+    // create char* src
+    // create char* dest
+    // skip leading space ' '
+    // start processing a word
+    // skip leading zeros in the word
+    // Add a single space if the next character is not the end of the string
+    char* src = numList;
+    char* dest = src;
+    int inWord = 0;
+//==============================================================
+    do{
+        while (*src == ' ') {
+            src++;
+        }
+        while (*src != ' ' && *src != '\0') {
+            if (inWord == 0 && *src == '0') {
+                src++;
+                continue;
+            }
+            inWord = 1;
+            *dest = *src++;
+        }
+        if (inWord) {
+            inWord = 0;
+            if (*src != '\0') {
+                *dest++ = ' ';
+            }
+        }
+       } while (*src != '\0');
+//=============================================================
+    // Remove trailing space if any
+    // Null-terminate the resulting string
+    if (dest != numList && *(dest - 1) == ' ') {
