@@ -15,7 +15,6 @@ float sumVector(struct vector* v);
 /*** print vector entries ***/
 void printVector(struct vector* v);
 
-
 struct vector {
         int length; // fields of this structure type
         float* values; // fields of this structure type
@@ -31,7 +30,7 @@ Vector newVector(int len) {
         // i want to take some block and insert values
         v = malloc(sizeof(Vector_st));
         if(!v) {
-                 return NULL;
+                return NULL;
         }
         // i want to insert in this adrees the next value
         v->values = malloc(len*sizeof(float));
@@ -39,18 +38,16 @@ Vector newVector(int len) {
         if(!v->values) {
                 free(v);
                 return NULL;
-         }
+        }
         // just need to initional length
-         v->length = len;
-         return v;
+        v->length = len;
+        return v;
 }
-
 
 void freeVector(Vector v) {
         free(v->values);
         free(v);
 }
-
 
 float getVectorElement(Vector v, int ind) {
         if(ind<0 || ind >= v->length) {
@@ -78,7 +75,6 @@ int setVectorBlock (Vector v, int startInd, int numElements, float* source) {
         return 1;
 }
 
-
 float vectorSum(Vector v) {
         int i;
         float sum=0;
@@ -92,7 +88,7 @@ void vectorPrint(Vector v) {
         int i;
         printf("[");
         for(i=0; i<v->length; i++) {
-                printf(" %.3f",v->values[i]); /*** 3 decimal places ***/
+            printf(" %.3f",v->values[i]); /*** 3 decimal places ***/
         }
         printf(" ]");
 }
