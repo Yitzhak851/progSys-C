@@ -298,6 +298,98 @@ double getNextNumberValue(const char* numList) {
    static const char* nextNumInList = NULL;
    double value = 0.0;
    /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
+    int sign = 1;
+    int decimal_point_seen = 0;
+    double decimal_multiplier = 0.1;
+
+    // Skip leading whitespaces
+    while (*str == ' ') {
+        str++;
+    }
+
+    // Handle possible sign
+    if (*str == '-') {
+        sign = -1;
+        str++;
+    } else if (*str == '+') {
+        str++;
+    }
+
+    // Check if it's a valid number or a sequence of digits
+    if (!((*str >= '0' && *str <= '9') || *str == '.')) {
+        return -1.0;
+    }
+
+    // Parse the number
+    while ((*str >= '0' && *str <= '9') || *str == '.') {
+        if (*str == '.') {
+            if (decimal_point_seen) {
+                return -1.0; // Multiple decimal points
+            }
+            decimal_point_seen = 1;
+        } else {
+            if (decimal_point_seen) {
+                value += (*str - '0') * decimal_multiplier;
+                decimal_multiplier *= 0.1;
+            } else {
+                value = value * 10 + (*str - '0');
+            }
+        }
+        str++;
+    }
+
+    // Check if we reached a valid end of the number
+    if (*str != '\0' && *str != ' ') {
+        return -1.0; // Invalid character in the number
+    }
+
+    return value * sign;
+}
+
+double getNextNumberValue(const char* numList) {
+    // Check if this is a different numList or the first call
+    if (prevNumList != numList) {
+        prevNumList = numList;
+        nextNumInList = numList;
+    }
+
+    // Skip leading whitespaces
+    while (*nextNumInList == ' ') {
+        nextNumInList++;
+    }
+
+    // If we reached the end of the string
+    if (*nextNumInList == '\0') {
+        // Reset for the next invocation
+        nextNumInList = numList;
+        return -2.0;
+    }
+
+    // Get the start of the current word
+    const char* start = nextNumInList;
+
+    // Move nextNumInList to the end of the current word
+    while (*nextNumInList != '\0' && *nextNumInList != ' ') {
+        nextNumInList++;
+    }
+
+    // Temporarily null-terminate the current word
+    char temp = *nextNumInList;
+    *((char*)nextNumInList) = '\0';
+
+    // Convert the current word to a double
+    double value = get1stNumberValue(start);
+
+    // Restore the original character
+    *((char*)nextNumInList) = temp;
+
+    // If we reached the end of the string, reset nextNumInList
+    if (*nextNumInList == '\0') {
+        nextNumInList = numList;
+    } else {
+        // Move to the start of the next word
+        nextNumInList++;
+    }   
    /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
    return value;
 }
