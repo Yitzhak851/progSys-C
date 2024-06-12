@@ -335,67 +335,25 @@ double getNextNumberValue(const char* numList) {
 double performOperation(const char* numList, char op) {
    double value = 0.0;
    /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
-    getNextNumberValue(NULL);
-    while(isValidNumList(numList)){
-        // point 1
-        if(!(op == '+'|| op == '*')){
-            return -1 ;
-        }
-        // point 2
-        if(getNextNumberValue(numList) == -1){
-            return -1 ;
-        }
-        if(getNextNumberValue(numList) == -2){
-            return value ;
-        }
-        // point 3
-        if(op == '+'){
-            value += getNextNumberValue(numList);
-        } else if (op == '*') {
-            value *= getNextNumberValue(numList);
-        }
-        // point 4
-        if(value == 0){
-            if(op == '*'){
-                return 1;
-            } else if (op == '+'){
-                return 0;
-            } else{
-                return -1;
-            }
-        }
-    }
-    if (!(isValidNumList(numList))){
+   double result = 0.0;
+    if((op != '+' && op != '*') || !isValidNumList(numList)){
         return -1;
     }
-   /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
-   return value;
-}
-
-/*** end of file ***/
-
-    if (op != '+' && op != '*') {
-        return -1.0;
-    }
-    if (op == '+') {
-        value = 0.0;
-    } else if (op == '*') {
-        value = 1.0;
-    }
-    double num;
-    int isNumber = 0;
-    while (1) {
-        num = getNextNumberValue(numList);
-        if (num == -2.0) {
-            break;  // End of the list
-        } else if (num == -1.0) {
-            return -1.0; // Invalid number in the list
-        } else {
-            isNumber = 1; // Valid number found
-            if (op == '+') {
-                value += num;
-            } else if (op == '*') {
-                value *= num;
-            }
+    getNextNumberValue("");
+    if(op == '+') {
+        result = 0;
+        while(-2 != (value = getNextNumberValue(numList))) {
+            result += value;
+        }
+    } else {
+        result = 1;
+        while(-2 != (value = getNextNumberValue(numList))){
+            result *= value;
         }
     }
+   /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
+   return result;
+}
+
+
+/*** end of file ***/
