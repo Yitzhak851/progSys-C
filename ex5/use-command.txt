@@ -18,7 +18,7 @@
     gcc /share/ex_data/ex5/test_ex5.c numList.c -Wall -D TEST_1_3 -o test_ex5_1_3 
     gcc /share/ex_data/ex5/test_ex5.c numList.c -Wall -D TEST_1_4 -o test_ex5_1_4
     gcc /share/ex_data/ex5/test_ex5.c numList.c -Wall -D TEST_1_5 -o test_ex5_1_5
-    gcc ..
+    gcc /share/ex_data/ex5/test_ex5.c numList.c -Wall -D TEST_1_6 -o test_ex5_1_6
 
     /share/ex_data/ex5/test_ex5.c
 }
@@ -34,7 +34,7 @@
     ./test_ex5_1_3 | diff - /share/ex_data/ex5/test_ex5_1_3.out 
     ./test_ex5_1_4 | diff - /share/ex_data/ex5/test_ex5_1_4.out 
     ./test_ex5_1_5 | diff - /share/ex_data/ex5/test_ex5_1_5.out 
-    ./
+    ./test_ex5_1_6 | diff - /share/ex_data/ex5/test_ex5_1_6.out
 }
 
 // Quick-jump
@@ -48,6 +48,6 @@
     // line 190: * Problem 1.3 : double get1stNumberValue(const char* numList);
     // line 228: * Problem 1.4 : char* compactNumList(char* numList);
     // line 287: * Problem 1.5 : double getNextNumberValue(const char* numList);
-    // line 271: * Problem 1.6 : ...
+    // line 329: * Problem 1.6 : double performOperation(const char* numList, char op)
 
 }

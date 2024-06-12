@@ -294,105 +294,33 @@ double getNextNumberValue(const char* numList) {
         prevNumList    - last numList argument passed to function
         nextNumInList  - pointer to first char in next number in list
    ***/
-   static const char* prevNumList   = NULL;
+   static const char* prevNumList = NULL;
    static const char* nextNumInList = NULL;
    double value = 0.0;
    /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
-    int sign = 1;
-    int decimal_point_seen = 0;
-    double decimal_multiplier = 0.1;
-
-    // Skip leading whitespaces
-    while (*str == ' ') {
-        str++;
+    if(numList == NULL) {
+        return -1;
     }
-
-    // Handle possible sign
-    if (*str == '-') {
-        sign = -1;
-        str++;
-    } else if (*str == '+') {
-        str++;
-    }
-
-    // Check if it's a valid number or a sequence of digits
-    if (!((*str >= '0' && *str <= '9') || *str == '.')) {
-        return -1.0;
-    }
-
-    // Parse the number
-    while ((*str >= '0' && *str <= '9') || *str == '.') {
-        if (*str == '.') {
-            if (decimal_point_seen) {
-                return -1.0; // Multiple decimal points
-            }
-            decimal_point_seen = 1;
-        } else {
-            if (decimal_point_seen) {
-                value += (*str - '0') * decimal_multiplier;
-                decimal_multiplier *= 0.1;
-            } else {
-                value = value * 10 + (*str - '0');
-            }
-        }
-        str++;
-    }
-
-    // Check if we reached a valid end of the number
-    if (*str != '\0' && *str != ' ') {
-        return -1.0; // Invalid character in the number
-    }
-
-    return value * sign;
-}
-
-double getNextNumberValue(const char* numList) {
-    // Check if this is a different numList or the first call
-    if (prevNumList != numList) {
+    if(numList != prevNumList) {
         prevNumList = numList;
         nextNumInList = numList;
     }
-
-    // Skip leading whitespaces
-    while (*nextNumInList == ' ') {
-        nextNumInList++;
-    }
-
-    // If we reached the end of the string
-    if (*nextNumInList == '\0') {
-        // Reset for the next invocation
-        nextNumInList = numList;
-        return -2.0;
-    }
-
-    // Get the start of the current word
-    const char* start = nextNumInList;
-
-    // Move nextNumInList to the end of the current word
-    while (*nextNumInList != '\0' && *nextNumInList != ' ') {
-        nextNumInList++;
-    }
-
-    // Temporarily null-terminate the current word
-    char temp = *nextNumInList;
-    *((char*)nextNumInList) = '\0';
-
-    // Convert the current word to a double
-    double value = get1stNumberValue(start);
-
-    // Restore the original character
-    *((char*)nextNumInList) = temp;
-
-    // If we reached the end of the string, reset nextNumInList
-    if (*nextNumInList == '\0') {
+    value = get1stNumberValue(nextNumInList);
+    if(value == -2){
         nextNumInList = numList;
     } else {
-        // Move to the start of the next word
-        nextNumInList++;
-    }   
+        //nextNumInList = compactNumList(nextNumInList);
+        while(*nextNumInList != '\0' && *nextNumInList == ' ' ) {
+            ++nextNumInList;
+        }
+        while(*nextNumInList != '\0' && *nextNumInList != ' ') {
+            ++nextNumInList;
+        }
+    }
    /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
    return value;
 }
+
 
 /*********************************
 * Problem 1.6
@@ -407,9 +335,67 @@ double getNextNumberValue(const char* numList) {
 double performOperation(const char* numList, char op) {
    double value = 0.0;
    /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
+    getNextNumberValue(NULL);
+    while(isValidNumList(numList)){
+        // point 1
+        if(!(op == '+'|| op == '*')){
+            return -1 ;
+        }
+        // point 2
+        if(getNextNumberValue(numList) == -1){
+            return -1 ;
+        }
+        if(getNextNumberValue(numList) == -2){
+            return value ;
+        }
+        // point 3
+        if(op == '+'){
+            value += getNextNumberValue(numList);
+        } else if (op == '*') {
+            value *= getNextNumberValue(numList);
+        }
+        // point 4
+        if(value == 0){
+            if(op == '*'){
+                return 1;
+            } else if (op == '+'){
+                return 0;
+            } else{
+                return -1;
+            }
+        }
+    }
+    if (!(isValidNumList(numList))){
+        return -1;
+    }
    /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
    return value;
 }
 
 /*** end of file ***/
 
+    if (op != '+' && op != '*') {
+        return -1.0;
+    }
+    if (op == '+') {
+        value = 0.0;
+    } else if (op == '*') {
+        value = 1.0;
+    }
+    double num;
+    int isNumber = 0;
+    while (1) {
+        num = getNextNumberValue(numList);
+        if (num == -2.0) {
+            break;  // End of the list
+        } else if (num == -1.0) {
+            return -1.0; // Invalid number in the list
+        } else {
+            isNumber = 1; // Valid number found
+            if (op == '+') {
+                value += num;
+            } else if (op == '*') {
+                value *= num;
+            }
+        }
+    }
