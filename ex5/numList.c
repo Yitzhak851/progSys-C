@@ -339,7 +339,7 @@ double performOperation(const char* numList, char op) {
     if((op != '+' && op != '*') || !isValidNumList(numList)){
         return -1;
     }
-    getNextNumberValue("");
+    getNextNumberValue(NULL);
     if(op == '+') {
         result = 0;
         while(-2 != (value = getNextNumberValue(numList))) {
@@ -351,6 +351,7 @@ double performOperation(const char* numList, char op) {
             result *= value;
         }
     }
+    getNextNumberValue(NULL);
    /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
    return result;
 }

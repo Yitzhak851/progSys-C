@@ -19,8 +19,8 @@
     gcc /share/ex_data/ex5/test_ex5.c numList.c -Wall -D TEST_1_4 -o test_ex5_1_4
     gcc /share/ex_data/ex5/test_ex5.c numList.c -Wall -D TEST_1_5 -o test_ex5_1_5
     gcc /share/ex_data/ex5/test_ex5.c numList.c -Wall -D TEST_1_6 -o test_ex5_1_6
-
-    /share/ex_data/ex5/test_ex5.c
+    /*--------------------- Problem_2 ---------------------*/
+    gcc -Wall simpleCalc.c numList.c -o simpleCalc 
 }
 
 // Running 
@@ -49,5 +49,7 @@
     // line 228: * Problem 1.4 : char* compactNumList(char* numList);
     // line 287: * Problem 1.5 : double getNextNumberValue(const char* numList);
     // line 329: * Problem 1.6 : double performOperation(const char* numList, char op)
-
 }
+
+/share/ex_data/ex5/test_ex5.c
+/share/ex_data/ex5/test_ex5.2 
