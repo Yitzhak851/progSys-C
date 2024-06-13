@@ -27,54 +27,44 @@ double performOperation(const char* numList, char op);
      that are allowed per number list
 ***/
 #define MAX_CHARS_IN_LIST 100
-
 /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
 // Main function implementation
 // Main function implementation
-int main() {
-    char numList[MAX_CHARS_IN_LIST + 1] = {0};
-    char c;
-    int pos = 0;
-
-    while (scanf("%c", &c) != EOF) {
-        if (c == '+' || c == '*') {
-            if (numWordsInList(numList) == 0) {
-                return 0; // Correct termination if the list is empty
-            }
-
-            char compactList[MAX_CHARS_IN_LIST + 1];
-            strcpy(compactList, numList);
-            compactNumList(compactList);
-
-            // Check if the list contains any invalid numbers
-            double value;
-            getNextNumberValue(NULL);
-            int wordIndex = 1;
-            while ((value = getNextNumberValue(compactList)) != -2) {
-                if (value == -1.0) {
-                    printf("Aborting because word #%d in list is not a valid number\n", wordIndex);
-                    return 1;
-                }
-                wordIndex++;
-            }
-
-            // Perform the operation and print the result
-            double result = performOperation(compactList, c);
-            printf("%s%c=%g\n", compactList, c, result);
-
-            // Reset the numList for the next set of input
-            memset(numList, 0, sizeof(numList));
-            pos = 0;
-        } else {
-            if (pos >= MAX_CHARS_IN_LIST) {
-                printf("Aborting because number list contains more than 100 characters\n");
-                return 2;
-            }
-            numList[pos++] = c;
-            numList[pos] = '\0';
-        }
+int main(int argc, char *argv[]) {
+    // Reading the input from stdin
+    fgets(input, sizeof(input), stdin);
+    // Trimming newline character
+    input[strcspn(input, "\n")] = '\0';
+    // Check the length of the number list
+    if (strlen(input) > MAX_CHARS_IN_LIST + 4) { // 4 extra for the operator and spaces
+        printf("Aborting because number list contains more than 100 characters\n");
+        return 2;
     }
-
+    // Validate the number list
+    if (!isValidNumList(input)) {
+        printf("Aborting because word #3 in list is not a valid number\n");
+        return 1;
+    }
+    // Find the operator and compact the number list
+    char* operator_pos = performOperation(input, op);
+    if (!operator_pos) {
+        operator_pos = strchr(input, '*');
+    }
+    if (!operator_pos) {
+        printf("Aborting because no valid operator found\n");
+        return 1;
+    }
+    char operator = *operator_pos;
+    *operator_pos = '\0';
+    char* num_list = compactNumList(input);
+    // Check the length of the compacted number list
+    if (strlen(num_list) > MAX_CHARS_IN_LIST) {
+        printf("Aborting because number list contains more than 100 characters\n");
+        return 2;
+    }
+    // Perform the operation
+    double result = performOperation(num_list, operator);
+    printf("%s=%0.f\n", num_list, result);
     return 0;
 }
 
