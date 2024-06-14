@@ -336,6 +336,7 @@ double performOperation(const char* numList, char op) {
    double value = 0.0;
    /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
    double result = 0.0;
+   getNextNumberValue(numList+1);
     if((op != '+' && op != '*') || !isValidNumList(numList)){
         return -1;
     }
