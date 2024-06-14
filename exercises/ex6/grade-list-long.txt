@@ -1,0 +1,22 @@
+John     Smith     67
+Israel   Israeli   93
+
+Eden     Golan     82
+Johny    Smither   81  Johny appealed his grade
+Lebron   James   1000
+Johny____Israeli   81  Johny be good
+Israel   Smith     67
+JaneDoe            93
+Marcus   Marcus  84.5
+Mickey   Mouse10   73
+MarkTwain100
+ John   Smith  72
+Israel Israeli 84
+Homer  Simpson 00000 Homer didn't do all that well
+ Eden    Golan 84    Fifth place is pretty good
+Johny Smithers 72    Johny appealed his grade
+ Yoni  Israeli 84
+Israel  Smithy 72    Didn't submit last assignment
+  Jane     Doe 84
+Mickey Mouse10 0000000072
+  Mark Twain  100

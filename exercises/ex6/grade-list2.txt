@@ -1,0 +1,12 @@
+John     Smith     67
+Israel   Israeli   93
+
+Eden     Golan     82
+Johny    Smither   81  Johny appealed his grade
+Lebron   James   1000
+Johny____Israeli   81  Johny be good
+Israel   Smith     67
+JaneDoe            93
+Marcus   Marcus  84.5
+Mickey   Mouse10   73
+MarkTwain100

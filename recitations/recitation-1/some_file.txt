@@ -1,0 +1,3 @@
+This is a simple text file
+
+File contains three lines of text (second line is empty)

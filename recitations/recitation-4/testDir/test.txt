@@ -1,0 +1,8 @@
+-rw-rw-r-- 1 gronau staff     13 Apr 11 16:03 dir1
+-rw-rw-r-- 1 gronau staff     37 Apr 11 16:03 file1
+-rw-rw-r-- 1 gronau staff      0 Apr 11 16:03 file2
+drwxrwxr-x 2 gronau staff   4096 Apr 11 16:03 file4
+drwxrwxr-x 2 gronau staff   4096 Apr 11 16:03 dir2
+-rw-rw-r-- 1 gronau staff 781102 Apr 11 16:03 myfile.txt
+-rw-rw-r-- 1 gronau staff 781102 Apr 11 16:03 odd-name-r--r--r--
+-rw-rw-r-- 1 gronau staff    288 Apr 11 16:03 phone_dir.txt

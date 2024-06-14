@@ -64,6 +64,13 @@ int main() {
                         wordIndex++;
                     }
                 }
+                // isValid
+                for (int i = 0; i < numWordsInList(numList); i++) {
+                    val = getNextNumberValue(numList);
+                    wordIndex++;
+                    printf("%s", numList);
+                    printf("%c", c);
+                }
                 double result = performOperation(numList, c);
                 printf("%s%c=%.0f\n", numList, c, result);
                 if (c == '\0') {

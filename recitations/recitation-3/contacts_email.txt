@@ -1,0 +1,13 @@
+Yael Cohen,054-4553870,IBM.com,yael.cohen@ibm.com
+Tamir Israeli,052-9232677,Microsoft.com,tamir.israeli@microsoft.com
+Amir Moyal,052-8762384,IBM.com,amir.moyal@ibm.com
+Sharon Levi,050-2314343,Google.com,sharon.levi@google.com
+Tal Zomer,054-4480440,SanDisk.com,tal.zomer@sandisk.com
+Danielle Fisher,054-6549230,Microsoft.com,danielle.fisher@microsoft.com
+Ruth Smith,054-9781232,Google.com,ruth.smith@google.com
+David Bakar,052-341290,SanDisk.com,david.bakar@sandisk.com
+Ben Brown,050-4912039,IBM.com,ben.brown@ibm.com
+Jeff Jacobs,052-9421012,Google.com,jeff.jacobs@google.com
+Mathew Wilson,050-4012838,Google.com,mathew.wilson@google.com
+William Norris,052-5901390,SanDisk.com,william.norris@sandisk.com
+
