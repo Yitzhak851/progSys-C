@@ -193,3 +193,98 @@ double performOperation(const char* numList, char op) {
 
 
 /*** end of file ***/
+
+int main() {
+    int i, j, k, numWordsInList, status;
+    char numList[MAX_CHARS_IN_LIST], op, prevOp;
+    char *numListPtr;
+    double result = 0;
+
+    printf("Enter a list of numbers and operators (+ or *): ");
+
+    // Read characters from the input stream one by one using a call to scanf with conversion specifier %c.
+    for (i = 0; i < MAX_CHARS_IN_LIST; i++) {
+        scanf(" %c", &numList[i]);
+        if (numList[i] == '\n' || numList[i] == '\0') {
+            break;
+        }
+    }
+    numList[i] = '\0';
+
+    numWordsInList = numWordsInList(numList);
+
+    // Check if the number list is empty
+    if (numWordsInList == 0) {
+        printf("Correct termination.\n");
+        return 0;
+    }
+
+    // Compact the number list
+    numListPtr = compactNumList(numList);
+
+    // Initialize the previous operator to '+' or '*'
+    prevOp = '+';
+
+    // Perform the arithmetic operation
+    for (i = 0; i < numWordsInList; i++) {
+        op = numList[i];
+        if (op == '*') {
+            // If the operator is '*', multiply the current result with the previous number
+            result = performOperation(result, prevOp, numList[i - 1]);
+            prevOp = '*';
+        } else {
+            // If the operator is '+', add the current number to the previous result
+            result = performOperation(result, prevOp, numList[i - 1]);
+            prevOp = '+';
+        }
+    }
+
+    // Print the result
+    printf("%s=", numListPtr);
+    printf("%f\n", result);
+
+    return 0;
+}
+
+int numWordsInList(char *numList) {
+    int i;
+    for (i = 0; numList[i] != '\0'; i++) {
+        if (numList[i] == ' ') {
+            return i;
+        }
+    }
+    return i;
+}
+
+int numWordsInList(const char* str) {
+   int numWords = 0;
+   /***      !!!   DO NOT DEFINE ADDITIONAL LOCAL VARIABLES (OTHER THAN numWords)  !!!   ***/
+   /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
+    while (*str != '\0'){
+        while (*str != ' ') {
+            str++;
+        }
+        numWords++;
+    }
+   /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
+   return numWords;
+}
+
+
+double performOperation(double result, char op, char num) {
+    if (op == '+') {
+        return result + atoi(&num);
+    } else {
+        return result * atoi(&num);
+    }
+}
+
+char *compactNumList(char *numList) {
+    int i;
+    for (i = 0; i < strlen(numList); i++) {
+        if (numList[i] == ' ') {
+            numList[i] = '\0';
+        }
+    }
+    return numList;
+}
