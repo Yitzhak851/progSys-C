@@ -1,0 +1,110 @@
+'C:\Program Files\Git\bin\sh.exe' --login
+
+C:\Users\yitzh\OneDrive - Reichman University\Desktop\progSys-C
+
+'C:\Users\yitzh\OneDrive - Reichman University\Desktop\progSys-C\Git\bin\sh.exe' --login
+
+usr/bin/bash/ --login -i
+
+'C:\Users\yitzh\OneDrive - Reichman University\Desktop\progSys-C\Git\usr\bin\bash\sh.exe' --login
+
+
+/c/Users/yitzh/OneDrive - Reichman University/Desktop/progSys-C/Git/bin/sh.exe --login
+
+c\Users\yitzh\OneDrive - Reichman University\Desktop\progSys-C\Git\bin\bash\sh.exe --login
+
+
+ssh <your-user-name>@<server-public-IP-address> -p <port-number> -i <your-local-ssh-private-key-name> 
+ssh brian@123.456.789 -p 2200 -i brianssh
+
+// Find IP
+{
+    -> Open Putty
+    -> Right click PuTTY console window title
+    -> Event Load
+    -> See the Port Field
+}
+
+{
+    To answer your literal question: 
+    To find an IP address and a port number of the current session:
+    Right click PuTTY console window title;
+    Select <Event Log>
+    The very first entry in the log says:
+    Connecting to <ip> port <port>
+}
+
+// My_example
+{
+    yitzh@YBO MINGW64 ~/OneDrive - Reichman University/Desktop$ 
+    ssh yitzhak.baror@194.153.101.24 -p 22 -i /home/yitzhak.baror
+
+    Warning: Identity file /home/yitzhak.baror not accessible: No such file or directory.
+    The authenticity of host '194.153.101.24 (194.153.101.24)' can't be established.
+    ED25519 key fingerprint is SHA256:7MWyNi6o+t2Uo2CdXmgN5atX2TkUEfq36VguWuioOTc.
+    This key is not known by any other names
+    Are you sure you want to continue connecting (yes/no/[fingerprint])? y
+    Please type 'yes', 'no' or the fingerprint: yes
+    Warning: Permanently added '194.153.101.24' (ED25519) to the list of known hosts.
+    yitzhak.baror@194.153.101.24's password: <PASSWORD>
+
+    Welcome to Ubuntu 22.04.4 LTS (GNU/Linux 5.15.0-107-generic x86_64)
+
+    * Documentation:  https://help.ubuntu.com
+    * Management:     https://landscape.canonical.com
+    * Support:        https://ubuntu.com/pro
+
+    System information as of Sat Jun 15 04:00:27 PM IDT 2024
+
+    System load:  0.0                Processes:               296
+    Usage of /:   17.9% of 93.83GB   Users logged in:         12
+    Memory usage: 35%                IPv4 address for ens160: 172.16.1.94
+    Swap usage:   7%
+
+    * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+    just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+    https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+    Expanded Security Maintenance for Applications is not enabled.
+
+    0 updates can be applied immediately.
+
+    Enable ESM Apps to receive additional future security updates.
+    See https://ubuntu.com/esm or run: sudo pro status
+
+
+    *** System restart required ***
+    Last login: Sat Jun 15 15:51:52 2024 from 87.70.86.190
+    yitzhak.baror@sysproglinux:~$ 
+    ls -l
+
+    total 12
+    drwxr-xr-x 12 yitzhak.baror students 4096 Jun 10 14:50 classes
+    drwx--x--x  8 yitzhak.baror students 4096 Jun 14 15:23 exercises
+    drwxr-xr-x 10 yitzhak.baror students 4096 May 31 10:24 recitations
+    yitzhak.baror@sysproglinux:~$
+}
+
+// Details
+{
+    -nlput | grep sshd
+    -nlput | grep sshd
+}
+
+// Exit
+{
+    How do I exit an SSH connection?
+    Two ways:
+    1) closing the shell session will usually exit, for example:
+        with the shell builtin command, exit, followed by Enter.
+
+    2) Ctrl-d, (end-of-file)
+
+    in the case where you have a bad connection and the shell is unresponsive, 
+    hit the Enter key, then type ~. 
+    and ssh should immediately close and return you to your command prompt.
+    The first option should be intuitive, but how do we know the latter option?
+    We could learn this information from a careful reading of the man page.
+    $ man ssh
+}
