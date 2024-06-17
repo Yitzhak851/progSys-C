@@ -29,65 +29,53 @@ double performOperation(const char* numList, char op);
 #define MAX_CHARS_IN_LIST 100
 /***      Apply all changes to the code below this line. DO NOT DELETE THIS COMMENT   ***/
 
-int main() {
-    char numList[MAX_CHARS_IN_LIST + 1];
-    int charCount, wordIndex, numValid;
-    while (1) {
-        memset(numList, 0, sizeof(numList)); // cool command for initialize numList :)
-        charCount = 0;
-        wordIndex = 1;
-        while (1) {
-            char c;
-            scanf("%c", &c);
-            if (c == '+' || c == '*' || c == '\0') {
-                if (charCount == 0) {
-                    if (c == '\0') {
-                        printf("0\n");
-                        return 0;                        
-                    }
+int main(){
+    char numList[MAX_CHARS_IN_LIST] = {' '};
+    char nextChar;
+    int scanLen = 0;
+    do{
+        scanf("%c", &nextChar);
+        if(nextChar == '*' || nextChar == '+'){
+            if(!numWordsInList(numList)){
+                return 0;
+            }else if(!isValidNumList(numList)){
+                int indexIsNotValid = 1;
+                while(getNextNumberValue(numList) != -1.0){
+                    indexIsNotValid++;
                 }
-                numList[charCount] = '\0';
-                if (charCount > MAX_CHARS_IN_LIST) {
-                    printf("Aborting because word #%d in list is not a valid number\n", charCount);
+                printf("Aborting because word #%d in list is not a valid number\n", indexIsNotValid);
+                return 1;
+            }else{
+                    char op = nextChar;
+                    double value = performOperation(numList, op);
+                    char* numListPrint = compactNumList(numList);
+                    while(*numListPrint){
+                        if(*numListPrint == ' '){
+                            printf("%c", op);
+                        } else {
+                            printf("%c", *numListPrint);
+                        }
+                        numListPrint++;
+                    }
+                    printf("=%.0f\n", value);
+                    int i;
+                    for(i = 0 ; i < MAX_CHARS_IN_LIST ; i++){
+                        numList[i] = ' ';
+                    }
+                    scanLen = 0;
+             }
+        }else{
+                 if(scanLen < MAX_CHARS_IN_LIST){
+                    numList[scanLen] = nextChar;
+                    scanLen++;
+                }else{
+                    printf("Aborting because number list contains more than %d characters\n" , MAX_CHARS_IN_LIST);
                     return 2;
                 }
-                compactNumList(numList);
-                numValid = isValidNumList(numList);
-                if (!numValid) {
-                    double val;
-                    for (int i = 0; i < numWordsInList(numList); i++) {
-                        val = getNextNumberValue(numList);
-                        if (val == -1.0) {
-                            printf("Aborting because word #%d in list is not a valid number\n", wordIndex);
-                            return 1;
-                        }
-                        wordIndex++;
-                    }
-                }
-                // isValid
-                for (int i = 0; i < numWordsInList(numList); i++) {
-                    val = getNextNumberValue(numList);
-                    wordIndex++;
-                    printf("%s", numList);
-                    printf("%c", c);
-                }
-                double result = performOperation(numList, c);
-                printf("%s%c=%.0f\n", numList, c, result);
-                if (c == '\0') {
-                    return 0;
-                }
-                // continue with next numList after an operator
-            }
-            if (charCount < MAX_CHARS_IN_LIST) {
-                numList[charCount] = c;
-                charCount++;
-            } else {
-                printf("Aborting because number list contains more than 100 characters\n");
-                return 2;
-            }
         }
-    }
+    }while(nextChar);
 }
+
 
 /***      Apply all changes to the code above this line. DO NOT DELETE THIS COMMENT   ***/
 /*** end of file ***/
