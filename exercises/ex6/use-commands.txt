@@ -1,0 +1,40 @@
+/*=====================================================*/
+/*================## Use command ## ===================*/
+/*=====================================================*/
+// Copy-folder
+{
+    cp /share/ex_data/ex6/* ~/exercises/ex6/
+}
+
+// Compilation
+{
+    /*--------------------- Problem_1 ---------------------*/
+    gcc /share/ex_data/ex6/test/test_ex6.c gradeList.c /share/ex_data/ex6/virtualHeap.c -Wall -D TEST_1_1 -o test_ex6_1_1
+
+    /*--------------------- Problem_2 ---------------------*/
+    gcc ...
+}
+
+// Running 
+{
+    /*--------------------- Problem_1 ---------------------*/
+    ./test_ex6_1_1 > my_test_ex6_1_3.out
+    diff my_test_ex6_1_3.out /share/ex_data/ex6/test/test_ex6_1_1.out
+}
+
+// Quick-jump
+{
+    /*=====================================================*/
+    /*=================== ## Quick jump ## ================*/
+    /*=====================================================*/
+    /*--------------------- Problem_1 ---------------------*/
+    // line 107: * Problem 1.1 : int isValidNumList(const char* str);
+    // line 153: * Problem 1.2 : int numWordsInList(const char* str);
+    // line 190: * Problem 1.3 : double get1stNumberValue(const char* numList);
+    // line 228: * Problem 1.4 : char* compactNumList(char* numList);
+    // line 287: * Problem 1.5 : double getNextNumberValue(const char* numList);
+    // line 329: * Problem 1.6 : double performOperation(const char* numList, char op)
+}
+
+/share/ex_data/ex5/test_ex5.c
+/share/ex_data/ex5/test_ex5.2 
