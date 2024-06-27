@@ -9,7 +9,7 @@
 // Compilation
 {
     /*--------------------- Problem_1 ---------------------*/
-    gcc /share/ex_data/ex6/test/test_ex6.c gradeList.c /share/ex_data/ex6/virtualHeap.c -Wall -D TEST_1_1 -o test_ex6_1_1
+    gcc /share/ex_data/ex6/test_ex6.c gradeList.c /share/ex_data/ex6/virtualHeap.c -Wall -D TEST_1_1 -o test_ex6_1_1
 
     /*--------------------- Problem_2 ---------------------*/
     gcc ...
