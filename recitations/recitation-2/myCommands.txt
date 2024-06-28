@@ -1,0 +1,19 @@
+cat phone_dir.txt | tr " " "\t" | cut -f2-3 | tr a-z A-Z > phone_reformatted.txt​
+sort -k2,2 -k3,3nr phone_dir.txt > phone_sorted.txt​
+cat phone_dir.txt | cut -d" " -f3 | cut -c2,3 | paste phone_dir.txt - -d " " | cut -d" " -f1,2,4 > phone_short.txt
+cat a-tale-of-two-cities.txt | tr [:space:] "\n" | tr -s "\n" | tr A-Z a-z | tr -d [:punct:] | sort | uniq -c | sort -k1,1nr | head
+
+//ex 1
+Write a piped sequence of commands that takes the file phone_dir.txt and generates a file phone_reformatted.txt, 
+in which each line is formatted as follows:  <First_name><tab><Phone_num> and the first name is in all-caps.
+
+// ex 2
+Write a piped sequence of commands that takes the file phone_dir.txt and generates a file phone_sorted.txt, 
+in which the entries are sorted first according to the first name, and for people with the same first name, in reverse order of the phone number.
+
+// ex 3
+Write a piped sequence of commands that takes the file phone_dir.txt and generates a file phone_short.txt, 
+in which only the 2nd and 3rd digits of the phone number are specified.
+
+//ex 4
+Go over the story “A tale of two cities" and print the ten most frequent words in the file, with their number of appearances.​
