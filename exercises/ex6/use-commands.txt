@@ -38,3 +38,6 @@
 
 /share/ex_data/ex5/test_ex5.c
 /share/ex_data/ex5/test_ex5.2 
+
+# my-solution
+# class-solution

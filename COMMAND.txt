@@ -1,21 +1,24 @@
-'C:\Program Files\Git\bin\sh.exe' --login
+// some few important commands
+{
+    'C:\Program Files\Git\bin\sh.exe' --login
 
-C:\Users\yitzh\OneDrive - Reichman University\Desktop\progSys-C
+    C:\Users\yitzh\OneDrive - Reichman University\Desktop\progSys-C
 
-'C:\Users\yitzh\OneDrive - Reichman University\Desktop\progSys-C\Git\bin\sh.exe' --login
+    'C:\Users\yitzh\OneDrive - Reichman University\Desktop\progSys-C\Git\bin\sh.exe' --login
 
-usr/bin/bash/ --login -i
+    usr/bin/bash/ --login -i
 
-'C:\Users\yitzh\OneDrive - Reichman University\Desktop\progSys-C\Git\usr\bin\bash\sh.exe' --login
-
-
-/c/Users/yitzh/OneDrive - Reichman University/Desktop/progSys-C/Git/bin/sh.exe --login
-
-c\Users\yitzh\OneDrive - Reichman University\Desktop\progSys-C\Git\bin\bash\sh.exe --login
+    'C:\Users\yitzh\OneDrive - Reichman University\Desktop\progSys-C\Git\usr\bin\bash\sh.exe' --login
 
 
-ssh <your-user-name>@<server-public-IP-address> -p <port-number> -i <your-local-ssh-private-key-name> 
-ssh brian@123.456.789 -p 2200 -i brianssh
+    /c/Users/yitzh/OneDrive - Reichman University/Desktop/progSys-C/Git/bin/sh.exe --login
+
+    c\Users\yitzh\OneDrive - Reichman University\Desktop\progSys-C\Git\bin\bash\sh.exe --login
+
+
+    ssh <your-user-name>@<server-public-IP-address> -p <port-number> -i <your-local-ssh-private-key-name> 
+    ssh brian@123.456.789 -p 2200 -i brianssh   
+}
 
 // Find IP
 {
@@ -23,15 +26,6 @@ ssh brian@123.456.789 -p 2200 -i brianssh
     -> Right click PuTTY console window title
     -> Event Load
     -> See the Port Field
-}
-
-{
-    To answer your literal question: 
-    To find an IP address and a port number of the current session:
-    Right click PuTTY console window title;
-    Select <Event Log>
-    The very first entry in the log says:
-    Connecting to <ip> port <port>
 }
 
 // My_example
@@ -107,4 +101,40 @@ ssh brian@123.456.789 -p 2200 -i brianssh
     The first option should be intuitive, but how do we know the latter option?
     We could learn this information from a careful reading of the man page.
     $ man ssh
+}
+
+// command `printenv` at ssh server
+{
+    SHELL=/bin/bash
+    LANGUAGE=en_US:en
+    PWD=/home/yitzhak.baror
+    LOGNAME=yitzhak.baror
+    XDG_SESSION_TYPE=tty
+    MOTD_SHOWN=pam
+    HOME=/home/yitzhak.baror
+    LANG=en_US.UTF-8
+    SSH_CONNECTION=176.12.147.162 45919 172.16.1.94 22
+    XDG_SESSION_CLASS=user
+    TERM=xterm-256color
+    USER=yitzhak.baror
+    SHLVL=1
+    XDG_SESSION_ID=8087
+    XDG_RUNTIME_DIR=/run/user/2171
+    SSH_CLIENT=176.12.147.162 45919 22
+    XDG_DATA_DIRS=/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+    PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+    DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/2171/bus
+    SSH_TTY=/dev/pts/5
+    _=/usr/bin/printenv
+    OLDPWD=/share/ex_sol/ex3
+}
+
+// example to correct command for connect ssh server
+{
+    To answer your literal question: 
+    To find an IP address and a port number of the current session:
+    Right click PuTTY console window title;
+    Select <Event Log>
+    The very first entry in the log says:
+    Connecting to <ip> port <port>
 }
