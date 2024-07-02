@@ -1,6 +1,6 @@
 // some few important commands
 {
-    'C:\Program Files\Git\bin\sh.exe' --login
+   'C:\Program Files\Git\bin\sh.exe' --login
 
     C:\Users\yitzh\OneDrive - Reichman University\Desktop\progSys-C
 
