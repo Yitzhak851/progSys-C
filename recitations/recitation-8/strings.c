@@ -1,19 +1,18 @@
 #include <stdio.h>
 
-// return string length
-int my_strlen(const char*);
-// copy string into buffer
-char* my_strcpy(char* dest, const char* source);
-// concat string after other string
-char* my_strcat(char* dest, const char* source);
 
-int main() {
+int my_strlen(const char *); // return string length
+char *my_strcpy(char *dest, const char *source); // copy string into buffer
+char *my_strcat(char *dest, const char *source); // concat string after other string
+
+int main()
+{
    char sentence[50] = "hello";
-   char* world = "world";
-   printf("sentence before: %s\n",sentence);
-   my_strcat(sentence," ");
-   my_strcat(sentence,world);
-   printf("sentence after:  %s\n",sentence);
+   char *world = "world";
+   printf("sentence before: %s\n", sentence);
+   my_strcat(sentence, " ");
+   my_strcat(sentence, world);
+   printf("sentence after:  %s\n", sentence);
    return 0;
 }
 
@@ -26,13 +25,13 @@ int main() {
   - number of characters from pointed char to first '\0'
   ***************************/
 
-int my_strlen(const char* str) {
-   int len=0;
-   while(str[len++])
-                 ;
-   return len-1;
+int my_strlen(const char *str)
+{
+   int len = 0;
+   while (str[len++])
+      ;
+   return len - 1;
 }
-
 
 /*****************************
   my_strcpy
@@ -44,9 +43,11 @@ int my_strlen(const char* str) {
   return:
   - pointer to destination string (equal to original dest)
   ***************************/
-char* my_strcpy(char* dest, const char* source) {
-   int i=0;
-   while(source[i]) {
+char *my_strcpy(char *dest, const char *source)
+{
+   int i = 0;
+   while (source[i])
+   {
       dest[i] = source[i];
       i++;
    }
@@ -64,8 +65,8 @@ char* my_strcpy(char* dest, const char* source) {
   return:
   - pointer to destination string (equal to original dest)
   ***************************/
-char* my_strcat(char* dest, const char* source) {
+char *my_strcat(char *dest, const char *source)
+{
    /*** WRITE CODE HERE ***/
-   return dest;  // return pointer to dest string
+   return dest; // return pointer to dest string
 }
-

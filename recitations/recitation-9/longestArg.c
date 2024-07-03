@@ -6,12 +6,11 @@ char *getLongestString(char **stringList, int n);
 int main(int argc, char **argv) {
    /*** invoke concatStrings on all arguments including argv[0] ***/
    char *longestString = getLongestString(argv, argc); // <-- fix function invocation to ignore program name
-   if (argc == 1)
-   {
+   if (argc == 1) {
       printf("Usage: ./<prog-name> <word-1> <word-2> .... ");
       return 1;
    }
-   longestString = getLongestString(argv, argc-1);
+   longestString = getLongestString(argv, argc);
    printf("Longest argument is \"%s\"\n", longestString);
    return 0;
 }

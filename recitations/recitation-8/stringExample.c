@@ -4,8 +4,7 @@
 #define ARRSIZE 15
 
 int main() {
-  char buffer1[ARRSIZE],
-       buffer2[ARRSIZE];
+  char buffer1[ARRSIZE], buffer2[ARRSIZE];
 
   strcpy(buffer1, "Hello");
   printf("String  = %s\n", buffer1);
