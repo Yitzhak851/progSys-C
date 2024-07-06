@@ -132,6 +132,9 @@ GradeNode appendGradeNode(GradeNode gradeList, GradeNode gradeNode){
         if (gradeNode->next != NULL){
             return gradeNode;
         }
+        if(gradeNode == NULL){
+            return NULL;
+        }
         return gradeNode;
     }
     GradeNode current = gradeList;

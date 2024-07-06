@@ -11,6 +11,11 @@
     /*--------------------- Problem_1 ---------------------*/
     gcc /share/ex_data/ex6/test_ex6.c gradeList.c /share/ex_data/ex6/virtualHeap.c -Wall -D TEST_1_1 -o test_ex6_1_1
     gcc /share/ex_data/ex6/test_ex6.c gradeList.c /share/ex_data/ex6/virtualHeap.c -Wall -D TEST_1_2 -o test_ex6_1_2
+    gcc /share/ex_data/ex6/test_ex6.c gradeList.c /share/ex_data/ex6/virtualHeap.c -Wall -D TEST_1_3 -o test_ex6_1_3
+    gcc /share/ex_data/ex6/test_ex6.c gradeList.c /share/ex_data/ex6/virtualHeap.c -Wall -D TEST_1_4 -o test_ex6_1_4
+    gcc /share/ex_data/ex6/test_ex6.c gradeList.c /share/ex_data/ex6/virtualHeap.c -Wall -D TEST_1_5 -o test_ex6_1_5
+    gcc /share/ex_data/ex6/test_ex6.c gradeList.c /share/ex_data/ex6/virtualHeap.c -Wall -D TEST_1_6 -o test_ex6_1_6
+    gcc /share/ex_data/ex6/test_ex6.c gradeList.c /share/ex_data/ex6/virtualHeap.c -Wall -D TEST_1_7 -o test_ex6_1_7
 
     /*--------------------- Problem_2 ---------------------*/
     gcc ...
@@ -21,6 +26,19 @@
     /*--------------------- Problem_1 ---------------------*/
     ./test_ex6_1_1 > my_test_ex6_1_1.out
     diff my_test_ex6_1_1.out /share/ex_data/ex6/test_ex6_1_1.out
+    ./test_ex6_1_2 > my_test_ex6_1_2.out
+    diff my_test_ex6_1_2.out /share/ex_data/ex6/test_ex6_1_2.out
+    ./test_ex6_1_3 > my_test_ex6_1_3.out
+    diff my_test_ex6_1_3.out /share/ex_data/ex6/test_ex6_1_3.out
+    ./test_ex6_1_4 > my_test_ex6_1_4.out
+    diff my_test_ex6_1_4.out /share/ex_data/ex6/test_ex6_1_4.out
+    ./test_ex6_1_5 > my_test_ex6_1_5.out
+    diff my_test_ex6_1_5.out /share/ex_data/ex6/test_ex6_1_5.out
+    ./test_ex6_1_6 > my_test_ex6_1_6.out
+    diff my_test_ex6_1_6.out /share/ex_data/ex6/test_ex6_1_6.out
+    ./test_ex6_1_7 > my_test_ex6_1_7.out
+    diff my_test_ex6_1_7.out /share/ex_data/ex6/test_ex6_1_7.out
+
 }
 
 // Quick-jump
