@@ -1,0 +1,41 @@
+Tests for appendGradeNode function:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+***Test  1: starting with empty list and appending grade node: {firstName:"John", lastName:"Doe",grade:98}
+John	Doe	98
+Average of 1 grades is 98.0
+***Test  2: appending grade node: {firstName:"Israel", lastName:"Israeli",grade:81}
+John	Doe	98
+Israel	Israeli	81
+Average of 2 grades is 89.5
+***Test  3: appending grade node: {firstName:"James", lastName:"Cohen",grade:75}
+John	Doe	98
+Israel	Israeli	81
+James	Cohen	75
+Average of 3 grades is 84.7
+***Test  4: appending grade node: {firstName:"Mark", lastName:"Twain",grade:91}
+John	Doe	98
+Israel	Israeli	81
+James	Cohen	75
+Mark	Twain	91
+Average of 4 grades is 86.2
+***Test  5: trying to append empty list to list of four nodes:
+John	Doe	98
+Israel	Israeli	81
+James	Cohen	75
+Mark	Twain	91
+Average of 4 grades is 86.2
+***Test  6: splitting list into two lists with 2 nodes and trying to re-attach by appending:
+***Test  6: first list after splitting:
+John	Doe	98
+Israel	Israeli	81
+Average of 2 grades is 89.5
+***Test  6: second list after splitting:
+James	Cohen	75
+Mark	Twain	91
+Average of 2 grades is 83.0
+***Test  6: first list after trying to append: (should remain unchanged)
+John	Doe	98
+Israel	Israeli	81
+Average of 2 grades is 89.5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+

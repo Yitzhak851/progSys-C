@@ -1,92 +1,236 @@
-/*************************************************
- *  gradeList.c
- *  -----------
- *  A program containing functions for implementing
- *  a new data structure that holds a list of grades
- *************************************************/
-
 #include "/share/ex_data/ex6/gradeList.h"
 #include "/share/ex_data/ex6/virtualHeap.h"
 #include <stdio.h>
 #include <string.h>
 
-// TYPE DEFINITIONS
-/*** object type - pointer to node in grade list ***/
-typedef struct GradeNode_st *GradeNode;
-/*** struct type for node in grade list ***/
-struct GradeNode_st
-{
-    /*** firstName and Last name hold strings that are allocated outside of the struct ***/
-    char *firstName;
-    char *lastName;
-    /*** grade should be an integer in range [0,100] ***/
-    char grade;
-    GradeNode next;
+/*************************************************
+*  gradeList.c
+*  -----------
+*  A program that implements the GradeList data structure's functions
+*  that holds a list of grades
+*************************************************/
+
+GradeNode newGradeNode(const char* firstName, const char* lastName, int grade){
+    // Check if grade is out of bounds
+    if (grade < 0 || grade > 100){
+        return NULL;
+    }
+    // Allocate memory for the new GradeNode
+    GradeNode newGradeNode = ourMalloc(sizeof(struct GradeNode_st));
+    // Check if allocation failed
+    if (newGradeNode == NULL){
+        return NULL;
+    }
+    // Allocate memory for the first name and copy the string
+    newGradeNode->firstName = ourMalloc(strlen(firstName) + 1);
+    // Check if allocation failed
+    if (newGradeNode->firstName == NULL){
+        ourFree(newGradeNode);
+        return NULL;
+    }
+    strcpy(newGradeNode->firstName, firstName);
+    // Allocate memory for the last name and copy the string
+    newGradeNode->lastName = ourMalloc(strlen(lastName) + 1);
+    // Check if allocation failed
+    if (newGradeNode->lastName == NULL){
+        ourFree(newGradeNode->firstName);
+        ourFree(newGradeNode);
+        return NULL;
+    }
+    strcpy(newGradeNode->lastName, lastName);
+    // Set the grade
+    newGradeNode->grade = grade;
+    // Set the next pointer to NULL
+    newGradeNode->next = NULL;
+    return newGradeNode;
 };
 
-// FUNCTION IMPLEMENTATIO
-// GradeNode largerGradeNode(GradeNode gradeNode1, GradeNode gradeNode2);
-// void printGradeList(GradeNode gradeList);
-// GradeNode appendGradeNode(GradeNode gradeList, GradeNode gradeNode);
-// GradeNode mergeSortedGradeLists(GradeNode gradeList1, GradeNode gradeList2);
-// GradeNode mergeSortGradeList(GradeNode gradeList);
-
-GradeNode newGradeNode(const char *firstName, const char *lastName, int grade)
-{
-    // Check if the grade is within the valid range
-    if (grade < 0 || grade > 100)
-    {
-        return NULL;
-    }
-
-    // Allocate memory for the grade node structure
-    GradeNode *node = (GradeNode *)ourMalloc(sizeof(GradeNode));
-    if (!node)
-    {
-        return NULL;
-    }
-
-    // Allocate memory for the first name
-    node->firstName = (char *)ourMalloc(strlen(firstName) + 1);
-    if (!node->firstName)
-    {
-        ourFree(node);
-        return NULL;
-    }
-
-    // Allocate memory for the last name
-    node->lastName = (char *)ourMalloc(strlen(lastName) + 1);
-    if (!node->lastName)
-    {
-        ourFree(node->firstName);
-        ourFree(node);
-        return NULL;
-    }
-
-    // Copy the first name and last name to the allocated memory
-    strcpy(node->firstName, firstName);
-    strcpy(node->lastName, lastName);
-
-    // Set the grade value
-    node->grade = grade;
-
-    // Return the newly created grade node
-    return node;
-}
-void freeGradeList(GradeNode gradeList)
-{
-    if (gradeList == NULL)
-    {
+void freeGradeList(GradeNode gradeList){
+    // If the list is empty, return
+    if (gradeList == NULL){
         return;
     }
-
-    // Free the rest of the list first (recursive step)
-    freeGradeList(gradeList->next);
-
-    // Free the allocated memory for first name and last name
+    // Free the first name
     ourFree(gradeList->firstName);
+    // Free the last name
     ourFree(gradeList->lastName);
-
-    // Free the node itself
+    // Recursively free the rest of the list
+    freeGradeList(gradeList->next);
+    // Free the current node
     ourFree(gradeList);
-}
+};
+
+GradeNode largerGradeNode(GradeNode gradeNode1, GradeNode gradeNode2){
+    // If both nodes are NULL, return NULL
+    if (gradeNode1 == NULL && gradeNode2 == NULL){
+        return NULL;
+    }
+    // If one of the nodes is NULL, return the other
+    if (gradeNode1 == NULL){
+        return gradeNode2;
+    }
+    if (gradeNode2 == NULL){
+        return gradeNode1;
+    }
+    // Compare the grades
+    if (gradeNode1->grade > gradeNode2->grade){
+        return gradeNode1;
+    }
+    if (gradeNode1->grade < gradeNode2->grade){
+        return gradeNode2;
+    }
+    // Compare the last names
+    int lastNameCompare = strcmp(gradeNode1->lastName, gradeNode2->lastName);
+    if (lastNameCompare > 0){
+        return gradeNode1;
+    }
+    if (lastNameCompare < 0){
+        return gradeNode2;
+    }
+    // Compare the first names
+    int firstNameCompare = strcmp(gradeNode1->firstName, gradeNode2->firstName);
+    if (firstNameCompare > 0){
+        return gradeNode1;
+    }
+    if (firstNameCompare < 0){
+        return gradeNode2;
+    }
+    // If all fields are identical, return gradeNode1
+    return gradeNode1;
+};
+
+void printGradeList(GradeNode gradeList){
+    // If the list is empty, print "Empty grade list"
+    if (gradeList == NULL){
+        printf("Empty grade list\n");
+        return;
+    }
+    // Print the first node
+    printf("%s\t%s\t%d\n", gradeList->firstName, gradeList->lastName, gradeList->grade);
+    // Initialize the sum of grades and the number of grades
+    int sum = gradeList->grade;
+    int count = 1;
+    // Iterate over the rest of the list
+    GradeNode current = gradeList->next;
+    while (current != NULL){
+        // Print the current node
+        printf("%s\t%s\t%d\n", current->firstName, current->lastName, current->grade);
+        // Update the sum and the count
+        sum += current->grade;
+        count++;
+        // Move to the next node
+        current = current->next;
+    }
+    // Calculate the average
+    double avg = (double)sum / count;
+    // Print the summary line
+    printf("Average of %d grades is %.1f\n", count, avg);
+};
+
+GradeNode appendGradeNode(GradeNode gradeList, GradeNode gradeNode){
+    if (gradeList == NULL){
+        if (gradeNode->next != NULL){
+            return gradeNode;
+        }
+        return gradeNode;
+    }
+    GradeNode current = gradeList;
+    while (current->next != NULL){
+        current = current->next;
+    }
+    current->next = gradeNode;
+    return gradeList;
+};
+
+GradeNode mergeSortedGradeLists(GradeNode gradeList1, GradeNode gradeList2){
+    // If one of the lists is empty, return the other
+    if (gradeList1 == NULL){
+        return gradeList2;
+    }
+    if (gradeList2 == NULL){
+        return gradeList1;
+    }
+    // Initialize the merged list
+    GradeNode mergedList = NULL;
+    // Initialize the current node in each list
+    GradeNode current1 = gradeList1;
+    GradeNode current2 = gradeList2;
+    // Initialize the last node in the merged list
+    GradeNode last = NULL;
+    // Iterate over the two lists
+    while (current1 != NULL && current2 != NULL){
+        // Compare the two nodes
+        GradeNode larger = largerGradeNode(current1, current2);
+        // Append the larger node to the merged list
+        if (mergedList == NULL){
+            mergedList = larger;
+            last = larger;
+        } else {
+            last->next = larger;
+            last = larger;
+        }
+        // Move to the next node in the list
+        if (larger == current1){
+            current1 = current1->next;
+        } else {
+            current2 = current2->next;
+        }
+    }
+    // Append the rest of the list
+    if (current1 != NULL){
+        last->next = current1;
+    } else {
+        last->next = current2;
+    }
+    return mergedList;
+};
+
+GradeNode mergeSortGradeList(GradeNode gradeList){
+    // If the list is empty or contains a single node, return the list
+    if (gradeList == NULL || gradeList->next == NULL){
+        return gradeList;
+    }
+    // Initialize the two halves of the list
+    GradeNode firstHalf = gradeList;
+    GradeNode secondHalf = gradeList->next;
+    // Split the list into two halves
+    while (secondHalf != NULL && secondHalf->next != NULL){
+        firstHalf = firstHalf->next;
+        secondHalf = secondHalf->next->next;
+    }
+    // Save the second half
+    secondHalf = firstHalf->next;
+    // Split the list
+    firstHalf->next = NULL;
+    // Recursively sort the two halves
+    firstHalf = mergeSortGradeList(gradeList);
+    secondHalf = mergeSortGradeList(secondHalf);
+    // Merge the two sorted halves
+    return mergeSortedGradeLists(firstHalf, secondHalf);
+};
+
+// int main() {
+//     // Initialize the virtual heap
+//     GradeNode gradeList = newGradeNode("John", "Doe", 90);
+//     gradeList = appendGradeNode(gradeList, newGradeNode("Jane", "Smith", 85));
+//     gradeList = appendGradeNode(gradeList, newGradeNode("Alice", "Brown", 95));
+//     gradeList = appendGradeNode(gradeList, newGradeNode("Bob", "White", 80));
+//     gradeList = appendGradeNode(gradeList, newGradeNode("Charlie", "Black", 75));
+//     gradeList = appendGradeNode(gradeList, newGradeNode("David", "Green", 100));
+//     gradeList = appendGradeNode(gradeList, newGradeNode("Eve", "Gray", 70));
+//     gradeList = appendGradeNode(gradeList, newGradeNode("Frank", "Blue", 65));
+//     gradeList = appendGradeNode(gradeList, newGradeNode("Grace", "Red", 60));
+//     // Print the grade list
+//     printGradeList(gradeList);
+//     // Sort the grade list
+//     gradeList = mergeSortGradeList(gradeList);
+//     // Print the sorted grade list
+//     printGradeList(gradeList);
+//     // Free the grade list
+//     freeGradeList(gradeList);
+//     // Free all resources allocated by the virtual heap
+//     freeAll();
+//     // Return 0
+//     return 0;
+// }
+// End of file

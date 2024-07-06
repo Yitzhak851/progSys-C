@@ -10,6 +10,7 @@
 {
     /*--------------------- Problem_1 ---------------------*/
     gcc /share/ex_data/ex6/test_ex6.c gradeList.c /share/ex_data/ex6/virtualHeap.c -Wall -D TEST_1_1 -o test_ex6_1_1
+    gcc /share/ex_data/ex6/test_ex6.c gradeList.c /share/ex_data/ex6/virtualHeap.c -Wall -D TEST_1_2 -o test_ex6_1_2
 
     /*--------------------- Problem_2 ---------------------*/
     gcc ...
@@ -18,8 +19,8 @@
 // Running 
 {
     /*--------------------- Problem_1 ---------------------*/
-    ./test_ex6_1_1 > my_test_ex6_1_3.out
-    diff my_test_ex6_1_3.out /share/ex_data/ex6/test/test_ex6_1_1.out
+    ./test_ex6_1_1 > my_test_ex6_1_1.out
+    diff my_test_ex6_1_1.out /share/ex_data/ex6/test_ex6_1_1.out
 }
 
 // Quick-jump

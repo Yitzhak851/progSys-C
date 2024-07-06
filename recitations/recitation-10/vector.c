@@ -176,8 +176,12 @@ int main() {
    /*** create a new vector object v3 that is a concatenation
         of vectors v1 and v2  (several lines of code)    ***/
 
+
+
    /*** write your code above this line                   ***/
-   printf("v3 = ");     printVector(v3);   printf("\n");
+   printf("v3 = ");
+   printVector(v3);
+   printf("\n");
 
    freeVector(v1);
    freeVector(v2);
