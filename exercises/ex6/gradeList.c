@@ -128,62 +128,39 @@ void printGradeList(GradeNode gradeList){
 };
 
 GradeNode appendGradeNode(GradeNode gradeList, GradeNode gradeNode){
+    // If the grade node is not a single node, return the original list
+    if (gradeNode == NULL || gradeNode->next != NULL){
+        return gradeList;
+    }
+    // If the list is empty, return the grade node
     if (gradeList == NULL){
-        if (gradeNode->next != NULL){
-            return gradeNode;
-        }
-        if(gradeNode == NULL){
-            return NULL;
-        }
         return gradeNode;
     }
+    // Initialize the current node
     GradeNode current = gradeList;
+    // Iterate over the list
     while (current->next != NULL){
         current = current->next;
     }
+    // Append the grade node
     current->next = gradeNode;
     return gradeList;
 };
 
 GradeNode mergeSortedGradeLists(GradeNode gradeList1, GradeNode gradeList2){
-    // If one of the lists is empty, return the other
     if (gradeList1 == NULL){
         return gradeList2;
     }
     if (gradeList2 == NULL){
         return gradeList1;
     }
-    // Initialize the merged list
     GradeNode mergedList = NULL;
-    // Initialize the current node in each list
-    GradeNode current1 = gradeList1;
-    GradeNode current2 = gradeList2;
-    // Initialize the last node in the merged list
-    GradeNode last = NULL;
-    // Iterate over the two lists
-    while (current1 != NULL && current2 != NULL){
-        // Compare the two nodes
-        GradeNode larger = largerGradeNode(current1, current2);
-        // Append the larger node to the merged list
-        if (mergedList == NULL){
-            mergedList = larger;
-            last = larger;
-        } else {
-            last->next = larger;
-            last = larger;
-        }
-        // Move to the next node in the list
-        if (larger == current1){
-            current1 = current1->next;
-        } else {
-            current2 = current2->next;
-        }
-    }
-    // Append the rest of the list
-    if (current1 != NULL){
-        last->next = current1;
+    GradeNode largerNode = largerGradeNode(gradeList1, gradeList2);
+    mergedList = largerNode;
+    if (largerNode == gradeList1){
+        mergedList->next = mergeSortedGradeLists(gradeList1->next, gradeList2);
     } else {
-        last->next = current2;
+        mergedList->next = mergeSortedGradeLists(gradeList1, gradeList2->next);
     }
     return mergedList;
 };

@@ -17,6 +17,8 @@
     gcc /share/ex_data/ex6/test_ex6.c gradeList.c /share/ex_data/ex6/virtualHeap.c -Wall -D TEST_1_6 -o test_ex6_1_6
     gcc /share/ex_data/ex6/test_ex6.c gradeList.c /share/ex_data/ex6/virtualHeap.c -Wall -D TEST_1_7 -o test_ex6_1_7
 
+    /share/ex_data/ex6/test_ex6.1
+
     /*--------------------- Problem_2 ---------------------*/
     gcc ...
 }
