@@ -148,44 +148,41 @@ GradeNode appendGradeNode(GradeNode gradeList, GradeNode gradeNode){
 };
 
 GradeNode mergeSortedGradeLists(GradeNode gradeList1, GradeNode gradeList2){
-    if (gradeList1 == NULL){
+    // base cases
+    if (gradeList1 == NULL && gradeList2 == NULL){
+        return NULL;
+    }else if (gradeList1 == NULL){
         return gradeList2;
-    }
-    if (gradeList2 == NULL){
+    } else if (gradeList2 == NULL){
         return gradeList1;
+    } else{
+        // find the smaller node
+        GradeNode smallerNode = largerGradeNode(gradeList1, gradeList2) == gradeList1 ? gradeList2 : gradeList1;
+        // then call the function recursively
+        if (smallerNode == gradeList1){
+            gradeList1->next = mergeSortedGradeLists(gradeList1->next, gradeList2);
+            return gradeList1;
+        } else {
+            gradeList2->next = mergeSortedGradeLists(gradeList1, gradeList2->next);
+            return gradeList2;
+        }
     }
-    GradeNode mergedList = NULL;
-    GradeNode largerNode = largerGradeNode(gradeList1, gradeList2);
-    mergedList = largerNode;
-    if (largerNode == gradeList1){
-        mergedList->next = mergeSortedGradeLists(gradeList1->next, gradeList2);
-    } else {
-        mergedList->next = mergeSortedGradeLists(gradeList1, gradeList2->next);
-    }
-    return mergedList;
 };
 
 GradeNode mergeSortGradeList(GradeNode gradeList){
-    // If the list is empty or contains a single node, return the list
     if (gradeList == NULL || gradeList->next == NULL){
         return gradeList;
     }
-    // Initialize the two halves of the list
-    GradeNode firstHalf = gradeList;
-    GradeNode secondHalf = gradeList->next;
-    // Split the list into two halves
-    while (secondHalf != NULL && secondHalf->next != NULL){
-        firstHalf = firstHalf->next;
-        secondHalf = secondHalf->next->next;
+    GradeNode slow = gradeList;
+    GradeNode fast = gradeList->next;
+    while (fast != NULL && fast->next != NULL){
+        slow = slow->next;
+        fast = fast->next->next;
     }
-    // Save the second half
-    secondHalf = firstHalf->next;
-    // Split the list
-    firstHalf->next = NULL;
-    // Recursively sort the two halves
-    firstHalf = mergeSortGradeList(gradeList);
+    GradeNode secondHalf = slow->next;
+    slow->next = NULL;
+    GradeNode firstHalf = mergeSortGradeList(gradeList);
     secondHalf = mergeSortGradeList(secondHalf);
-    // Merge the two sorted halves
     return mergeSortedGradeLists(firstHalf, secondHalf);
 };
 

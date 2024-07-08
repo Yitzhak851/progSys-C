@@ -20,7 +20,9 @@
     /share/ex_data/ex6/test_ex6.1
 
     /*--------------------- Problem_2 ---------------------*/
-    gcc ...
+    gcc -Wall /share/ex_data/ex6/virtualHeap.c gradeList.c processGrades.c -o processGrades
+    
+    check_ex ex6
 }
 
 // Running 
