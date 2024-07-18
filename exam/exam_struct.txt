@@ -1,0 +1,24 @@
+## ============ PROBLEM-1 : LINUX COMMAND ============ ##
+(14/20-points)
+(4-points) 1.1-    cat rsvps.txt | grep -v "yes$" | grep "no"
+(4-points) 1.2-    sort rsvps.txt -k2,2 | paste - rsvps.txt | tail -n1
+(4-points) 1.3-
+(4-points) 1.4-
+(4-points) 1.5-
+
+## ============ PROBLEM-2 : BASH-COMMAND ============ ##
+(2/13-points)
+(10-points) 2.1-
+(3-points)  2.2- 
+
+## ============ PROBLEM-3 : progSys-C : syntax ============ ##
+(19/22-points)
+3-
+
+## ============ PROBLEM-4 : progSys-C : struct ============ ##
+(35/45-points)
+(8-points)  4.1-
+(4-points)  4.2-
+(8-points)  4.3-
+(12-points) 4.4-
+(13-points) 4.5-

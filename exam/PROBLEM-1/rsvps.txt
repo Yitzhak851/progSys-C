@@ -1,0 +1,13 @@
+Marilyn 7	no
+Francis 8	no
+Raoul 7
+Jonatan 9
+Jake 5
+Frankenstein 6	yes
+Frederick 5	yes
+William 7	no
+Benno 8		yes
+Frederick 10
+Maxfield 5	yes
+Alnoory 11
+Laurean 7	yes
