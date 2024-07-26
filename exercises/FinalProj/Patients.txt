@@ -22,11 +22,19 @@ Duration:
 Doctor:Muhammad Yunus
 Summary:
 ========================
-3.Michael Shore;203389445;Penicillin
+3.Shuli Abutbul;012345678;Penicillin,Anesthetics,Eggs
+
+Arrival:29/06/2024 14:08
+Dismissed:
+Duration:
+Doctor:Muhammad Yunus
+Summary:
+========================
+4.Michael Shore;203389445;Penicillin
 
 Arrival:12/02/2011 02:13
 Dismissed:12/02/2011 05:50
-Duration:3:37
+Duration:3:36
 Doctor:Diana Prokonov
 Summary:Fell from a bycicle. Broken arm. In cast.
 
@@ -42,11 +50,11 @@ Duration:
 Doctor:Muhammad Yunus
 Summary:
 ========================
-4.Gali Libovitz;308456713;none
+5.Gali Libovitz;308456713;none
 
 Arrival:02/07/2012 12:33
 Dismissed:03/07/2012 15:12
-Duration:26:39
+Duration:26:38
 Doctor:Hanni Barlev
 Summary:Gallstones.Severe pain.Laproscopic cholecystectomy.
 
@@ -54,14 +62,6 @@ Arrival:29/06/2024 23:26
 Dismissed:
 Duration:
 Doctor:David Azrachi
-Summary:
-========================
-5.Shuli Abutbul;012345678;Penicillin,Anesthetics,Eggs
-
-Arrival:29/06/2024 14:08
-Dismissed:
-Duration:
-Doctor:Muhammad Yunus
 Summary:
 ========================
 6.Haim Ezer;312488813;none
@@ -72,5 +72,3 @@ Duration:
 Doctor:David Azrachi
 Summary:
 ========================
-
-	

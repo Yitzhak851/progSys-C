@@ -1,7 +1,6 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
+﻿#include "functions.h"
 
-#include "functions.h"
-
+#define _CRT_SECURE_NO_WARNINGS
 #define NONE 0
 #define PENICILLIN 1
 #define SULFA 2
@@ -10,828 +9,415 @@
 #define EGGS 16
 #define LATEX 32
 #define PRESERVATIVES 64
+#define MAX_NAME 50
+#define MAX_ID 10
+#define MAX_LICENSE 10
+#define MAX_SUMMARY 100
+#define MAX_LINE 100
 
-void displayError(char *error)
-{
-	fprintf(stderr, "%s", error);
+// ################################ ================== Functions for the Date struct ================== ################################
+// Creates a new Date struct
+Date *createDate(int Year, int Month, int Day, int Hour, int Min){
+	Date *date = (Date *)malloc(sizeof(Date));
+	date->Year = Year;
+	date->Month = Month;
+	date->Day = Day;
+	date->Hour = Hour;
+	date->Min = Min;
+	return date;
 }
 
-char sumAllergies(char *str)
-{
+// Prints the date in the format "YYYY/MM/DD HH:MM"
+void printDate(Date *date){
+	printf("%d/%d/%d %d:%d", date->Year, date->Month, date->Day, date->Hour, date->Min);
+}
 
-	str = strtok(str, ",");
-	char res = 0;
-	char *allergies[] = {"none", "Penicillin", "Sulfa", "Opioids",
-						 "Anesthetics", "Eggs", "Latex", "Preservatives"};
-	char aller_vals[] = {NONE, PENICILLIN, SULFA, OPIOIDS, ANESTHETICS, EGGS, LATEX, PRESERVATIVES};
-	while (str != NULL)
-	{
-		for (int i = 0; i < 8; i++)
-		{
-			if (strcmp(str, allergies[i]) == 0)
-			{
-				res += aller_vals[i];
-				break;
-			}
-		}
-		str = strtok(NULL, ",");
+// Frees the memory allocated for the Date struct
+void freeDate(Date *date){
+	free(date);
+	if (date != NULL){
+		free(date);
+		date = NULL;
 	}
-	return res;
 }
 
-void enterToTree(plnTree **currNode, Patient *tempP)
-{
-	if (*currNode == NULL)
-	{
-		(*currNode) = (plnTree *)malloc(sizeof(plnTree));
-		if (*currNode == NULL)
-		{
-			printf("allocation failed\n");
-			return;
-		}
-		(*currNode)->tpatient = tempP;
-		(*currNode)->left = NULL;
-		(*currNode)->right = NULL;
-		return;
-	}
-	if (strcmp((*currNode)->tpatient->ID, tempP->ID) < 0)
-		enterToTree(&((*currNode)->right), tempP);
-	else
-		enterToTree(&((*currNode)->left), tempP);
-}
 
-int extractNum(char *str)
-{
-	int res = 0;
-	int len = 0;
-	for (char *temp = str; *temp; temp++)
-		len++;
-
-	for (; *str; str++)
-	{
-		res += *str - 48;
-		if (len > 1)
-		{
-			res *= 10;
-			len--;
-		}
-	}
-	return res;
-}
-
-Date *getDate(char *str)
-{
-	Date *tempD = (Date *)malloc(sizeof(Date));
-	if (tempD == NULL)
-	{
-		printf("allocation failed\n");
+// ################################ ================== Functions for the Doc struct ================== ################################
+// Creates a new Doc struct
+Doc *createDoc(char *Name, char *nLicense, int nPatients){
+	Doc *doc = (Doc *)malloc(sizeof(Doc));
+	// check if the memory allocation was successful
+	if (doc == NULL){
+		printf("Memory allocation failed\n");
 		return NULL;
 	}
-	str = strtok(str, "/");
-	tempD->Day = extractNum(str);
-	str = strtok(NULL, "/");
-	tempD->Month = extractNum(str);
-	str = strtok(NULL, " ");
-	tempD->Year = extractNum(str);
-	str = strtok(NULL, ":");
-	tempD->Hour = extractNum(str);
-	str = strtok(NULL, "\n");
-	tempD->Min = extractNum(str);
-	return tempD;
+	strcpy(doc->Name, Name);
+	strcpy(doc->nLicense, nLicense);
+	doc->nPatients = nPatients;
+	return doc;
 }
-
-float getDuration(char *str)
-{
-	float res = 0;
-	str = strtok(str, ":");
-	res += extractNum(str) * 100;
-	str = strtok(NULL, "\r");
-	res += extractNum(str);
-	res /= 100;
-	return res;
+// Prints the Doc struct
+void printDoc(Doc *doc){
+	printf("Doctor: %s\nLicense: %s\nPatients: %d\n", doc->Name, doc->nLicense, doc->nPatients);
 }
-
-Stack *Push(Stack *visits, Visit **tempV)
-{
-	if (visits == NULL)
-	{
-		visits = (Stack *)malloc(sizeof(Stack));
-		if (visits == NULL)
-		{
-			printf("allocation failed\n");
-			return NULL;
-		}
-		visits->visit = *tempV;
-		visits->next = NULL;
-		return visits;
-	}
-	else
-	{
-		visits->next = Push(visits->next, tempV);
-		return visits;
+// Frees the memory allocated for the Doc struct
+void freeDoc(Doc *doc){
+	free(doc);
+	if (doc != NULL){
+		free(doc);
+		doc = NULL;
 	}
 }
-
-Visit *pop(Patient *p)
-{
-	if (p->Visits == NULL)
-		return NULL;
-	Visit *res = p->Visits->visit;
-	p->Visits = p->Visits->next;
-	return res;
+// Load the doctors into the linked list from FILE - #### new one ####
+ll *loadDoctors(FILE *fDoctors){
+	ll *myList = NULL;
+	char Name[MAX_NAME];
+	char nLicense[MAX_LICENSE];
+	int nPatients;
+	while (fscanf(fDoctors, "%s %s %d", Name, nLicense, &nPatients) != EOF){
+		Doc *doc = createDoc(Name, nLicense, nPatients);
+		ll *newList = createLL(doc);
+		newList->next = myList;
+		myList = newList;
+	}
+	return myList;
 }
 
-Doc *getDoc(ll *head, char *str)
-{
-	if (head == NULL)
+
+// ################################ ================== Functions for the Visit struct ================== ################################
+// Creates a new Visit struct
+Visit *createVisit(Date *tArrival, Date *tDismissed, float Duration, Doc *Doctor, char *vSummary){
+	Visit *visit = (Visit *)malloc(sizeof(Visit));
+	// check if the memory allocation was successful
+	if (!visit){
+		printf("Memory allocation failed\n");
 		return NULL;
-	if (strcmp(head->doc->Name, str) == 0)
-		return head->doc;
-	else
-		return getDoc(head->next, str);
+	}
+	visit->tArrival = tArrival;
+	visit->tDismissed = tDismissed;
+	visit->Duration = Duration;
+	visit->Doctor = Doctor;
+	strcpy(visit->vSummary, vSummary);
+	return visit;
 }
 
-pTree *loadPatients(ll **head, char *filePath)
-{
-	// TODO: Implement this function
-	FILE *file = fopen(filePath, "r");
-	if (file == NULL)
-	{
-		perror("Error opening file");
-		return NULL;
+// Prints the Visit struct
+void printVisit(Visit *visit){
+	printf("Arrival: ");
+	printDate(visit->tArrival);
+	printf("\nDismissed: ");
+	printDate(visit->tDismissed);
+	printf("\nDuration: %.2f\nDoctor: %s\nSummary: %s\n", visit->Duration, visit->Doctor->Name, visit->vSummary);
+}
 
-		plnTree *root = NULL;
-		Patient *tempP = NULL;
-		Visit *tempV = NULL;
-		pTree *tempT = NULL;
-		tempT = (pTree *)malloc(sizeof(pTree));
-		if (tempT == NULL)
-		{
-			printf("allocation failed\n");
-			return NULL;
+// Frees the memory allocated for the Visit struct
+void freeVisit(Visit *visit){
+	freeDate(visit->tArrival);
+	freeDate(visit->tDismissed);
+	freeDoc(visit->Doctor);
+	free(visit);
+	if (visit != NULL){
+		free(visit);
+		visit = NULL;
+	}
+}
+
+
+// ################################ ================== Functions for the Stack struct ================== ################################
+// Creates a new Stack struct
+Stack *createStack(Visit *visit){
+	Stack *stack = (Stack *)malloc(sizeof(Stack));
+	// check if the memory allocation was successful
+	if (!stack){
+		printf("Memory allocation failed\n");
+		return NULL;
+	}
+	stack->visit = visit;
+	stack->next = NULL;
+	return stack;
+}
+
+// Prints the Stack struct
+void printStack(Stack *stack){
+	Stack *temp = stack;
+	while (temp != NULL){
+		printVisit(temp->visit);
+		temp = temp->next;
+	}
+}
+
+// Frees the memory allocated for the Stack struct
+void freeStack(Stack *stack){
+	Stack *temp = stack;
+	while (temp != NULL){
+		Stack *next = temp->next;
+		freeVisit(temp->visit);
+		free(temp);
+		temp = next;
+	}
+}
+
+
+// ################################ ================== Functions for the Patient struct ================== ################################
+// Creates a new Patient struct
+Patient *createPatient(char *Name, char *ID, char Allergies, Stack *Visits, int nVisits){
+	Patient *patient = (Patient *)malloc(sizeof(Patient));
+	// check if the memory allocation was successful
+	if (!patient){
+		printf("Memory allocation failed\n");
+		return NULL;
+	}
+	strcpy(patient->Name, Name);
+	strcpy(patient->ID, ID);
+	patient->Allergies = Allergies;
+	patient->Visits = Visits;
+	patient->nVisits = nVisits;
+	return patient;
+}
+// Prints the Patient struct
+void printPatient(Patient *patient){
+	printf("Name: %s\nID: %s\nAllergies: ", patient->Name, patient->ID);
+	printAllergies(patient->Allergies);
+	printf("\nVisits: %d\n", patient->nVisits);
+	printStack(patient->Visits);
+}
+// Frees the memory allocated for the Patient struct
+void freePatient(Patient *patient){
+	free(patient);
+	if (patient != NULL){
+		free(patient);
+		patient = NULL;
+	}
+}
+// Load the patients into Binary tree from FILE and pointer - #### new one ####
+// this function get (Doc *doc, FILE *fPatients) and return pTree
+ll *loadPatients(Doc *doc, FILE *fPatients){
+	ll *myList = NULL;
+	char Name[MAX_NAME];
+	char ID[MAX_ID];
+	char Allergies;
+	int nVisits;
+	while (fscanf(fPatients, "%s %s %c %d", Name, ID, &Allergies, &nVisits) != EOF){
+		Stack *Visits = NULL;
+		for (int i = 0; i < nVisits; i++){
+			Date *tArrival = createDate(0, 0, 0, 0, 0);
+			Date *tDismissed = createDate(0, 0, 0, 0, 0);
+			float Duration;
+			char vSummary[MAX_SUMMARY];
+			fscanf(fPatients, "%d %d %d %d %d %d %f %s", &tArrival->Year, &tArrival->Month, &tArrival->Day, &tArrival->Hour, &tArrival->Min, &tDismissed->Year, &tDismissed->Month, &tDismissed->Day, &tDismissed->Hour, &tDismissed->Min, &Duration, vSummary);
+			Doc *Doctor = doc;
+			Visit *visit = createVisit(tArrival, tDismissed, Duration, Doctor, vSummary);
+			Stack *newStack = createStack(visit);
+			newStack->next = Visits;
+			Visits = newStack;
 		}
-		char buffer[256];
-		fgets(buffer, sizeof(buffer), file);
-		while (fgets(buffer, sizeof(buffer), file))
-		{
-			if (strstr(buffer, "========================") != NULL)
-			{
-				if (tempP != NULL)
-				{
-					enterToTree(&root, tempP);
-					tempV = NULL;
-				}
-			}
-			if (strstr(buffer, ";") != NULL)
-			{
-				tempP = (Patient *)malloc(sizeof(Patient));
-				if (tempP == NULL)
-				{
-					printf("allocation failed\n");
-					return NULL;
-				}
-				char *token = strtok(buffer, ";");
-				tempP->Name = strdup(token + 2);
-				token = strtok(NULL, ";");
-				tempP->ID = strdup(token);
-				token = strtok(NULL, "\n");
-				tempP->Allergies = sumAllergies(token);
-				tempP->Visits = NULL;
-				tempP->nVisits = 0;
-			}
-			if (strstr(buffer, "Arrival") != NULL)
-			{
-				tempP->nVisits += 1;
-				tempV = (Visit *)malloc(sizeof(Visit));
-				if (tempV == NULL)
-				{
-					printf("allocation failed\n");
-					return NULL;
-				}
-				char *token = strtok(buffer, ":");
-				token = strtok(NULL, "\n");
-				tempV->tArrival = getDate(token);
-			}
-			if (strstr(buffer, "Dismissed") != NULL)
-			{
-				char *token = strtok(buffer, ":");
-				token = strtok(NULL, "\n");
-				if (token != NULL)
-					tempV->tDismissed = getDate(token);
-				else
-					tempV->tDismissed = NULL;
-			}
-			if (strstr(buffer, "Duration") != NULL)
-			{
-				char *token = strtok(buffer, ":");
-				token = strtok(NULL, "\n");
-				if (token != NULL)
-					tempV->Duration = getDuration(token);
-				else
-					tempV->Duration = 0;
-			}
-			if (strstr(buffer, "Doctor") != NULL)
-			{
-				char *token = strtok(buffer, ":");
-				token = strtok(NULL, "\n");
-				tempV->Doctor = getDoc(*head, token);
-			}
-			if (strstr(buffer, "Summary") != NULL)
-			{
-				char *token = strtok(buffer, ":");
-				token = strtok(NULL, "\n");
-				if (token != NULL)
-					tempV->vSummary = strdup(token);
-				else
-					tempV->vSummary = "";
-				tempP->Visits = Push(tempP->Visits, &tempV);
-			}
+		Patient *patient = createPatient(Name, ID, Allergies, Visits, nVisits);
+		ll *newList = createLL(patient);
+		newList->next = myList;
+		myList = newList;
+	}
+	return myList;
+}
 
-			// pTree *loadPatients(ll **head, char *filePath){
-			// 	FILE *file = fopen(filePath, "r");
-			// 	if (file == NULL) {
-			// 		perror("Error opening file");
-			// 		return NULL;
-			// 	}
 
-			// 	plnTree *root = NULL;
-			// 	Patient *tempP = NULL;
-			// 	Visit *tempV = NULL;
-			// 	pTree *tempT = NULL;
-			// 	tempT = (pTree *)malloc(sizeof(pTree));
-			// 	if (tempT == NULL) {
-			// 		printf("allocation failed\n");
-			// 		return NULL;
-			// 	}
-			// 	char buffer[256];
-			// 	fgets(buffer, sizeof(buffer), file);
-			// 	while (fgets(buffer, sizeof(buffer), file)) {
-			// 		if (strstr(buffer, "========================") != NULL) {
-			// 			if (tempP != NULL) {
-			// 				enterToTree(&root, tempP);
-			// 				tempV = NULL;
-			// 			}
-			// 		}
-			// 		if (strstr(buffer, ";") != NULL)
-			// 		{
-			// 			tempP = (Patient *)malloc(sizeof(Patient));
-			// 			if (tempP == NULL) {
-			// 				printf("allocation failed\n");
-			// 				return NULL;
-			// 			}
-			// 			char *token = strtok(buffer, ";");
-			// 			tempP->Name = strdup(token + 2);
-			// 			token = strtok(NULL, ";");
-			// 			tempP->ID = strdup(token);
-			// 			token = strtok(NULL, "\n");
-			// 			tempP->Allergies = sumAllergies(token);
-			// 			tempP->Visits = NULL;
-			// 			tempP->nVisits = 0;
-			// 		}
-			// 		if (strstr(buffer, "Arrival") != NULL)
-			// 		{
-			// 			tempP->nVisits += 1;
-			// 			tempV = (Visit *)malloc(sizeof(Visit));
-			// 			if (tempV == NULL) {
-			// 				printf("allocation failed\n");
-			// 				return NULL;
-			// 			}
-			// 			char *token = strtok(buffer, ":");
-			// 			token = strtok(NULL, "\n");
-			// 			tempV->tArrival = getDate(token);
-			// 		}
-			// 		if (strstr(buffer, "Dismissed") != NULL) {
-			// 			char *token = strtok(buffer, ":");
-			// 			token = strtok(NULL, "\n");
-			// 			if (token != NULL)
-			// 				tempV->tDismissed = getDate(token);
-			// 			else
-			// 				tempV->tDismissed = NULL;
-			// 		}
-			// 		if (strstr(buffer, "Duration") != NULL) {
-			// 			char *token = strtok(buffer, ":");
-			// 			token = strtok(NULL, "\n");
-			// 			if (token != NULL)
-			// 				tempV->Duration = getDuration(token);
-			// 			else
-			// 				tempV->Duration = 0;
-			// 		}
-			// 		if (strstr(buffer, "Doctor") != NULL) {
-			// 			char *token = strtok(buffer, ":");
-			// 			token = strtok(NULL, "\n");
-			// 			tempV->Doctor = getDoc(*head, token);
-			// 		}
-			// 		if (strstr(buffer, "Summary") != NULL) {
-			// 			char *token = strtok(buffer, ":");
-			// 			token = strtok(NULL, "\n");
-			// 			if (token != NULL)
-			// 				tempV->vSummary = strdup(token);
-			// 			else
-			// 				tempV->vSummary = "";
-			// 			tempP->Visits = Push(tempP->Visits, &tempV);
-			// 		}
-			// 	}
-			// 	tempT->myTree = root;
-			// 	fclose(file);
-			// 	return tempT;
-			// }
+// ################################ ================== Functions for the plnTree struct ================== ################################
+// Creates a new plnTree struct
+plnTree *createPlnTree(Patient *tpatient){
+	plnTree *myTree = (plnTree *)malloc(sizeof(plnTree));
+	// check if the memory allocation was successful
+	if (!myTree){
+		printf("Memory allocation failed\n");
+		return NULL;
+	}
+	myTree->tpatient = tpatient;
+	myTree->right = NULL;
+	myTree->left = NULL;
+	return myTree;
+}
 
-			void append(ll * *curr, Doc * *tempD)
-			{
-				if (*curr == NULL)
-				{
-					*curr = (ll *)malloc(sizeof(ll));
-					if (*curr == NULL)
-					{
-						printf("allocation failed\n");
-						return;
-					}
-					(*curr)->doc = *tempD;
-					(*curr)->next = NULL;
-					return;
-				}
-				else
-					append(&(*curr)->next, tempD);
-			}
+// Prints the plnTree struct
+void printPlnTree(plnTree *myTree){
+	if (myTree != NULL){
+		printPlnTree(myTree->left);
+		printPatient(myTree->tpatient);
+		printPlnTree(myTree->right);
+	}
+}
 
-			// functions.c:373:69: warning: passing argument 1 of ‘insertAtEnd’ from incompatible pointer type [-Wincompatible-pointer-types]
-			//   373 |                                         (*curr)->next = insertAtEnd(&((*curr)->next), tempP);
-			//       |                                                                     ^~~~~~~~~~~~~~~~
-			//       |                                                                     |
-			//       |                                                                     struct plnLine **
-			// fix it by changing the type of the first argument of insertAtEnd from plnLine ** to plnLine * *:
-			// implement the function insertAtEnd
-			plnLine *insertAtEnd(plnLine * *curr, Patient * *tempP)
-			{
-				if (*curr == NULL)
-				{
-					*curr = (plnLine *)malloc(sizeof(plnLine));
-					if (*curr == NULL)
-					{
-						printf("allocation failed");
-						return NULL;
-					}
-					(*curr)->lpatient = *tempP;
-					(*curr)->next = NULL;
-					return *curr;
-				}
-				else
-				// functions.c:381:69: warning: passing argument 1 of ‘insertAtEnd’ from incompatible pointer type [-Wincompatible-pointer-types]
-				//   381 |                                         (*curr)->next = insertAtEnd(&((*curr)->next), tempP);
-				//   |                                                                     ^~~~~~~~~~~~~~~~
-				//   |                                                                     |
-				//   |                                                                     struct plnLine **
-				// fix it by changing the type of the first argument of insertAtEnd from plnLine ** to plnLine * *:
-				{
-					(*curr)->next = insertAtEnd(&((*curr)->next), tempP);
-					// functions.c:381:69: warning: passing argument 1 of ‘insertAtEnd’ from incompatible pointer type [-Wincompatible-pointer-types]
-					//   381 |                                         (*curr)->next = insertAtEnd(&((*curr)->next), tempP);
-					//       |                                                                     ^~~~~~~~~~~~~~~~
-					//       |                                                                     |
-					//       |                                                                     struct plnLine **
-					// fix it by changing the type of the first argument of insertAtEnd from plnLine ** to plnLine * *:
-					
-					return *curr;
-				}
-			}
+// Frees the memory allocated for the plnTree struct
+void freePlnTree(plnTree *myTree){
+	if (myTree != NULL){
+		freePlnTree(myTree->left);
+		freePlnTree(myTree->right);
+		freePatient(myTree->tpatient);
+		free(myTree);
+		myTree = NULL;
+	}
+}
 
-			Patient *searchPatient(plnTree * curr, char *id)
-			{
-				if (curr == NULL)
-					return NULL;
-				char *currID = curr->tpatient->ID;
-				if (strcmp(currID, id) == 0)
-					return curr->tpatient;
-				if (strcmp(currID, id) > 0)
-					return searchPatient(curr->left, id);
-				else
-					return searchPatient(curr->right, id);
-			}
 
-			Doc *createDoc(char *str)
-			{
-				Doc *tempD = (Doc *)malloc(sizeof(Doc));
-				if (tempD == NULL)
-				{
-					printf("allocation failed\n");
-					return NULL;
-				}
-				str = strtok(str, ";");
-				tempD->Name = _strdup(str);
-				str = strtok(NULL, ";");
-				tempD->nLicense = _strdup(str + 1);
-				str = strtok(NULL, "\n");
-				tempD->nPatients = extractNum(str + 1);
-				return tempD;
-			}
+// ################################ ================== Functions for the pTree struct ================== ################################
+// Creates a new pTree struct
+pTree *createPTree(plnTree *myTree){
+	pTree *myPTree = (pTree *)malloc(sizeof(pTree));
+	// check if the memory allocation was successful
+	if (!myPTree){
+		printf("Memory allocation failed\n");
+		return NULL;
+	}
+	myPTree->myTree = myTree;
+	// TODO: check if this is necessary
+	myPTree->next = NULL; 
+	return myPTree;
+}
 
-			ll *loadDoctors(char *filePath)
-			{
-				FILE *file = fopen(filePath, "r");
-				if (file == NULL)
-				{
-					perror("Error opening file");
-					return NULL;
-				}
+// Prints the pTree struct
+void printPTree(pTree *myTree){
+	printPlnTree(myTree->myTree);
+}
 
-				Doc *tempD;
-				ll *head = NULL;
+// Frees the memory allocated for the pTree struct
+void freePTree(pTree *myTree){
+	if (myTree != NULL){
+		freePlnTree(myTree->myTree);
+		free(myTree);
+		myTree = NULL;
+	}
+	// TODO: check if this is necessary
+}
 
-				char buffer[256];
-				fgets(buffer, sizeof(buffer), file);
-				fgets(buffer, sizeof(buffer), file);
-				while (fgets(buffer, sizeof(buffer), file))
-				{
-					char *token = strtok(buffer, "\n");
-					tempD = createDoc(token);
-					append(&head, &tempD);
-				}
-				return head;
-			}
 
-			pLine *loadLine(pTree * tree, char *filePath)
-			{
-				FILE *file = fopen(filePath, "r");
-				if (file == NULL)
-				{
-					perror("Error opening file");
-					return NULL;
-				}
-				pLine *temp = NULL;
-				temp = (pLine *)malloc(sizeof(pLine));
-				if (temp == NULL)
-				{
-					printf("allocation failed");
-					return NULL;
-				}
-				plnLine *line = NULL;
+// ################################ ================== Functions for the plnLine struct ================== ################################
+plnLine *createPlnLine(Patient *lpatient){
+	plnLine *myLine = (plnLine *)malloc(sizeof(plnLine));
+	// check if the memory allocation was successful
+	if (!myLine){
+		printf("Memory allocation failed\n");
+		return NULL;
+	}
+	myLine->lpatient = lpatient;
+	myLine->next = NULL;
+	return myLine;
+}
 
-				char buffer[256];
-				fgets(buffer, sizeof(buffer), file);
-				fgets(buffer, sizeof(buffer), file);
-				while (fgets(buffer, sizeof(buffer), file))
-				{
-					char *token = strtok(buffer, "\r\n");
-					Patient *tempP = searchPatient(tree->myTree, token + 2);
-					if (tempP == NULL)
-					{
-						printf("No patient with this id:%s is registered", token);
-						return NULL;
-					}
-					else
-						line = insertAtEnd(&line, &tempP);
-				}
-				temp->myLine = line;
-				return temp;
-			}
+void printPlnLine(plnLine *myLine){
+	plnLine *temp = myLine;
+	while (temp != NULL){
+		printPatient(temp->lpatient);
+		temp = temp->next;
+	}
+}
 
-			char *extractAller(char aller)
-			{
-				char *res = (char *)malloc(74);
-				if (res == NULL)
-				{
-					printf("allocation failed\n");
-					return NULL;
-				}
-				strcpy(res, "");
+void freePlnLine(plnLine *myLine){
+	plnLine *temp = myLine;
+	while (temp != NULL){
+		plnLine *next = temp->next;
+		freePatient(temp->lpatient);
+		free(temp);
+		temp = next;
+	}
+}
 
-				char *allergies[] = {
-					"none", "Penicillin", "Sulfa", "Opioids",
-					"Anesthetics", "Eggs", "Latex", "Preservatives"};
+// ################################ ================== Functions for the pLine struct ================== ################################
+pLine *createPLine(plnLine *myLine){
+	pLine *myPLine = (pLine *)malloc(sizeof(pLine));
+	// check if the memory allocation was successful
+	if (!myPLine){
+		printf("Memory allocation failed\n");
+		return NULL;
+	}
+	myPLine->myLine = myLine;
+	// TODO: solve this issue
+	// why myPLine->next is NULL? It should be the next pLine struct in the list
+	// myPLine->next = NULL;
+	//
+	myPLine->next = NULL;
+	return myPLine;
+}
 
-				for (int i = 1, j = 1; i < 8; i++, j *= 2)
-				{
-					if (aller & j)
-					{
-						if (strcmp(res, "") != 0)
-						{
-							strcat(res, ",");
-						}
-						strcat(res, allergies[i]);
-					}
-				}
+void printPLine(pLine *myLine){
+	pLine *temp = myLine;
+	while (temp != NULL){
+		printPlnLine(temp->myLine);
+		temp = temp->next;
+	}
+}
 
-				strcat(res, "\r\n");
-				return res;
-			}
+void freePLine(pLine *myLine){
+	pLine *temp = myLine;
+	while (temp != NULL){
+		pLine *next = temp->next;
+		freePlnLine(temp->myLine);
+		free(temp);
+		temp = next;
+	}
+}
 
-			void writeDuration2File(float num, char *filePath)
-			{
-				FILE *file = fopen(filePath, "a");
-				if (file == NULL)
-				{
-					perror("Error opening file");
-					return;
-				}
-				int hour = (int)num;
-				int min = (int)((num - hour) * 100);
-				fprintf(file, "%d:%02d\n", hour, min);
-				fflush(file);
-				fclose(file);
-			}
+// ################################ ================== Functions for the ll struct ================== ################################
+ll *createLL(Doc *doc){
+	ll *myList = (ll *)malloc(sizeof(ll));
+	// check if the memory allocation was successful
+	if (!myList){
+		printf("Memory allocation failed\n");
+		return NULL;
+	}
+	myList->doc = doc;
+	myList->next = NULL;
+	return myList;
+}
 
-			void updatePatient(Patient * p, int *num)
-			{
-				FILE *file = fopen("Patients1.txt", "a");
-				if (file == NULL)
-				{
-					perror("Error opening file");
-					return;
-				}
-				fprintf(file, "========================\n");
-				fflush(file);
-				fprintf(file, "%d.%s;%s;%s\n", *num, p->Name, p->ID, extractAller(p->Allergies));
-				fflush(file);
+void printLL(ll *myList){
+	ll *temp = myList;
+	while (temp != NULL){
+		printDoc(temp->doc);
+		temp = temp->next;
+	}
+}
 
-				(*num)++;
+void freeLL(ll *myList){
+	ll *temp = myList;
+	while (temp != NULL){
+		ll *next = temp->next;
+		freeDoc(temp->doc);
+		free(temp);
+		temp = next;
+	}
+}
 
-				for (int i = 0; i < p->nVisits; i++)
-				{
-					fprintf(file, "\n");
-					Visit *tempV = pop(p);
-					Date *arrival = tempV->tArrival;
-					Date *dismiss = tempV->tDismissed;
-					Doc *doc = tempV->Doctor;
-					fprintf(file, "Arrival:%02d/%02d/%02d ", arrival->Day, arrival->Month, arrival->Year);
-					fprintf(file, "%02d:%02d\n", arrival->Hour, arrival->Min);
-					fflush(file);
 
-					if (dismiss != NULL)
-					{
-						fprintf(file, "Dismissed:%02d/%02d%02d ", dismiss->Day, dismiss->Month, dismiss->Year);
-						fprintf(file, "%02d:%02d\n", dismiss->Hour, dismiss->Min);
-						fflush(file);
-					}
-					else
-						fprintf(file, "Dissmissed:\n");
-					fprintf(file, "Duration:");
-					fflush(file);
-					if (tempV->Duration != 0)
-						writeDuration2File(tempV->Duration, "Patients1.txt");
-					else
-						fprintf(file, "\n");
-					fprintf(file, "Doctor:%s\n", doc->Name);
-					fprintf(file, "Summary:%s\n", tempV->vSummary);
-					fflush(file);
-				}
-				fclose(file);
-			}
+// ################################ ================== Functions for the main program ================== ################################
+void printMenu(){
+	printf("1. Add a new patient\n");
+	printf("2. Add a new visit\n");
+	printf("3. Print all patients\n");
+	printf("4. Print all visits\n");
+	printf("5. Print all doctors\n");
+	printf("6. Print all patients in line\n");
+	printf("7. Print all patients in the tree\n");
+	printf("8. Print all patients in the line of trees\n");
+	printf("9. Exit\n");
+}
 
-			int updatePatients(plnTree * curr, int *num)
-			{
-
-				if (curr == NULL)
-					return 0;
-				updatePatient(curr->tpatient, num);
-				updatePatients(curr->left, num);
-				updatePatients(curr->right, num);
-				return 0;
-			}
-
-			int updateDoctors(ll * head)
-			{
-				FILE *file = fopen("Doctors1.txt", "a");
-				if (file == NULL)
-				{
-					perror("Error opening file");
-					return;
-				}
-				for (ll *curr = head; curr; curr = curr->next)
-				{
-					fprintf(file, "%s; %s; %d\n", curr->doc->Name, curr->doc->nLicense, curr->doc->nPatients);
-					fflush(file);
-				}
-				return 0;
-				fclose(file);
-			}
-
-			int updateLine(plnLine * line)
-			{
-				FILE *file = fopen("Line1.txt", "a");
-				if (file == NULL)
-				{
-					perror("Error opening file");
-					return;
-				}
-				int i = 1;
-				for (plnLine *curr = line; curr; curr = curr->next)
-				{
-					fprintf(file, "%d.%s\n", i++, curr->lpatient->ID);
-					fflush(file);
-				}
-				return 0;
-				fclose(file);
-			}
-
-			void updateFiles(pTree * tree, pLine * line, ll * *head)
-			{
-				FILE *file1 = fopen("Patients1.txt", "w");
-				if (file1 == NULL)
-				{
-					perror("Error opening file");
-					return;
-				}
-				fprintf(file1, "Name; ID; Allergies\n");
-				fflush(file1);
-
-				FILE *file2 = fopen("Doctors1.txt", "w");
-				if (file2 == NULL)
-				{
-					perror("Error opening file");
-					return;
-				}
-				fprintf(file2, "Full Name; License Number; Number of Patients\n");
-				fprintf(file2, "=================================================\n");
-				fflush(file2);
-				fclose(file2);
-
-				FILE *file3 = fopen("Line1.txt", "w");
-				if (file3 == NULL)
-				{
-					perror("Error opening file");
-					return;
-				}
-				fprintf(file3, "Patients' IDs in line\n");
-				fprintf(file3, "=====================\n");
-				fflush(file3);
-				fclose(file3);
-
-				int *num = {1};
-
-				if (updatePatients(tree->myTree, &num) == 0)
-				{
-					fprintf(file1, "========================");
-					fflush(file1);
-					fclose(file1);
-					printf("Patient.txt has been updated successfully\n");
-				}
-
-				if (updateDoctors(*head) == 0)
-					printf("Doctors.txt has been updated successfully\n");
-
-				if (line != NULL)
-				{
-					if (updateLine(line->myLine) == 0)
-						printf("Line.txt has been updated successfully\n");
-				}
-			}
-
-			char *getTime()
-			{
-				time_t now = time(NULL);
-				if (now == -1)
-				{
-					perror("Error getting the current time");
-					return 1;
-				}
-
-				struct tm *local_time = localtime(&now);
-				if (local_time == NULL)
-				{
-					perror("Error converting to local time");
-					return 1;
-				}
-
-				char time_str[100];
-				if (strftime(time_str, sizeof(time_str), "%Y/%m/%d %H:%M\n", local_time) == 0)
-				{
-					fprintf(stderr, "Error formatting time\n");
-					return 1;
-				}
-				printf("%s", time_str);
-
-				return time_str;
-			}
-
-			void assignDoctor2case(ll * head, Visit * v)
-			{
-				Doc *leastBusy = head->doc;
-				for (ll *temp = head->next; temp; temp = temp->next)
-				{
-					if (temp->doc->nPatients < leastBusy->nPatients)
-						leastBusy = temp->doc;
-				}
-				leastBusy->nPatients++;
-				v->Doctor = leastBusy;
-			}
-
-			int isFull(ll * head)
-			{
-				for (ll *temp = head; temp; temp = temp->next)
-					if (temp->doc->nPatients < 4)
-						return 1;
-				return 0;
-			}
-
-			void editName(Patient * p)
-			{
-				char name[30];
-				printf("Please enter patient's name:");
-				if (fgets(name, sizeof(name), stdin) != NULL)
-				{
-					size_t len = strlen(name);
-					if (len > 0 && name[len - 1] == '\n')
-					{
-						name[len - 1] = '\0';
-					}
-
-					int valid = 1;
-					for (size_t i = 0; i < len; i++)
-					{
-						if (!((name[i] >= 'a' && name[i] <= 'z') || (name[i] >= 'A' && name[i] <= 'Z') || name[i] == ' ' || name[i] == '\0'))
-						{
-							valid = 0;
-							break;
-						}
-					}
-					if (!valid)
-					{
-						printf("The name entered must contain only characters and spaces\n");
-						editName(p);
-						return;
-					}
-					p->Name = name;
-				}
-				else
-					editName(p);
-			}
-
-			void editAllergies(Patient * p)
-			{
-				char *allergies[] = {"none", "Penicillin", "Sulfa", "Opioids",
-									 "Anesthetics", "Eggs", "Latex", "Preservatives"};
-
-				printf("Out of this list please select all allergies you know of\n");
-				printf("in the format like this 1,2,3,...7\n");
-				int aller_size = sizeof(allergies) / sizeof(allergies[0]);
-				char aller[16];
-				for (int i = 0; i < aller_size; i++)
-					printf("%d - %s\n", i, allergies[i]);
-
-				if (scanf("%s", aller) != 1)
-					editAllergies(p);
-				p->Allergies = sumAllergies(aller);
-			}
-
-			Patient *registerNewPatient(plnTree * root, char *id)
-			{
-				Patient *tempP = (Patient *)malloc(sizeof(Patient));
-				tempP->ID = id;
-				editName(tempP);
-				editAllergies(tempP);
-				tempP->Visits = NULL;
-				tempP->nVisits = 0;
-				enterToTree(&root, tempP);
-				return tempP;
-			}
-
-			int activeVisit(Stack * visits)
-			{
-				for (Stack *tempS = visits; tempS; tempS = tempS->next)
-					if (tempS->visit->tDismissed == NULL)
-						return 1;
-				return 0;
-			}
-
-			Visit *createNewVisit(ll * head)
-			{
-				Visit *tempV = (Visit *)malloc(sizeof(Visit));
-				Date *tempD = getDate(getTime());
-				tempV->tArrival = tempD;
-				tempV->tDismissed = NULL;
-				tempV->Duration = 0;
-				assignDoctor2case(head, tempV);
-				return tempV;
-			}
-
-			void admitPatient(plnTree * root, ll * head)
-			{
-				if (isFull)
-				{
-					printf("There is no space for new patients\n");
-					return;
-				}
-				char id[10];
-				while (1)
-				{
-					printf("Please enter ID number: ");
-					if (scanf("%9s", &id) != 1)
-					{
-						printf("Invalid id number\n");
-						continue;
-					}
-					break;
-				}
-				Patient *tempP = searchPatient(root, id);
-				if (tempP == NULL)
-					tempP = registerNewPatient(root, id);
-
-				if (activeVisit(tempP->Visits))
-				{
-					printf("There is currently and active visit\n");
-					return;
-				}
-
-				Visit *tempV = createNewVisit(head);
-				Push(tempP->Visits, &tempV);
-			}
+void printAllergies(char Allergies){
+	if (Allergies & PENICILLIN){
+		printf("Penicillin ");
+	}
+	if (Allergies & SULFA){
+		printf("Sulfa ");
+	}
+	if (Allergies & OPIOIDS){
+		printf("Opioids ");
+	}
+	if (Allergies & ANESTHETICS){
+		printf("Anesthetics ");
+	}
+	if (Allergies & EGGS){
+		printf("Eggs ");
+	}
+	if (Allergies & LATEX){
+		printf("Latex ");
+	}
+	if (Allergies & PRESERVATIVES){
+		printf("Preservatives ");
+	}
+}

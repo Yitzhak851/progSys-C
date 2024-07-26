@@ -1,0 +1,121 @@
+==========================================================================================================================================
+@file structs.h
+@brief This file contains the structures used in the program.
+Structures include Date, Doc, Visit, Stack, Patient, plnTree, pTree, plnLine, pLine, and ll.
+represents:
+1)  a date
+2)  a doctor
+3)  a visit
+4)  a stack "nodeOfVisits"
+5)  a patient
+6)  a node in a BST of patients
+7)  a BST of patients
+8)  a node in a linked-list of patients in line
+9)  a linked list of patients in line
+10) a node in a linked-list of doctors
+==========================================================================================================================================
+ 
+
+
+
+
+/**
+ * ("Date") Structures represents a date.
+ */
+typedef struct {
+	int Year;  ///< Year (e.g., 2024)
+	int Month; ///< Month (1-12)
+	int Day;   ///< Day (1-31)
+	int Hour;  ///< Hour (0-23)
+	int Min;   ///< Minute (0-59)
+} Date;
+
+
+
+/**
+ * ("Doc") Structure representing a doctor:
+ */
+typedef struct {
+	char *Name;		///< Name of the doctor
+	char *nLicense; ///< License number of the doctor
+	int nPatients;	///< Number of patients assigned to the doctor
+} Doc;
+
+
+/**
+ * ("Visit") Structure representing a visit to the hospital:
+ */
+typedef struct {
+	Date *tArrival;	  ///< Arrival date and time
+	Date *tDismissed; ///< Dismissal date and time
+	float Duration;	  ///< Duration of the visit in hours
+	Doc *Doctor;	  ///< Doctor assigned to the visit
+	char *vSummary;	  ///< Summary of the visit
+} Visit;
+
+
+/**
+ * ("Stack") Structure representing a stack node of visits:
+ */
+typedef struct Stack {
+	Visit *visit;		///< Pointer to a visit
+	struct Stack *next; ///< Pointer to the next stack node
+} Stack;
+
+
+/**
+ * ("Patient") Structure representing a patient:
+ */
+typedef struct {
+	char *Name;		///< Name of the patient
+	char *ID;		///< ID of the patient
+	char Allergies; ///< Allergies of the patient
+	Stack *Visits;	///< Stack of visits
+	int nVisits;	///< Number of visits
+} Patient;
+
+
+/**
+ * ("plnTree") Structure representing a node in a binary search tree of patients:
+ */
+typedef struct plnTree {
+	Patient *tpatient;	   ///< Pointer to a patient
+	struct plnTree *right; ///< Pointer to the right child node
+	struct plnTree *left;  ///< Pointer to the left child node
+} plnTree;
+
+
+/**
+ * ("pTree") Structure representing a binary search tree of patients:
+ */
+typedef struct ptree {
+	plnTree *myTree; ///< Pointer to the root of the tree
+} pTree;
+
+
+
+/**
+ * ("plnLine") Structure representing a node in a linked list of patients in line:
+ */
+typedef struct {
+	Patient *lpatient;	  ///< Pointer to a patient
+	struct plnLine *next; ///< Pointer to the next node in line
+} plnLine;
+
+
+
+/**
+ * ("pLine") Structure representing a linked list of patients in line:
+ */
+typedef struct pline {
+	plnLine *myLine; ///< Pointer to the first node in the line
+} pLine;
+
+
+/**
+ * ("ll") Structure: representing a node in a linked list of doctors:
+ */
+typedef struct ll {
+	Doc *doc;		 ///< Pointer to a doctor
+	struct ll *next; ///< Pointer to the next node in the list
+} ll;
