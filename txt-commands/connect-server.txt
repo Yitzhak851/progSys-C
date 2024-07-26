@@ -1,0 +1,138 @@
+==> ssh yitzhak.baror@194.153.101.24 -p 22 -i /home/yitzhak.baror
+
+194.153.101.24
+
+==> ssh <your-user-name>@<server-public-IP-address> -p <port-number> -i <your-local-ssh-private-key-name>
+==> --login
+==> --login -i
+==> 'C:\Users\yitzh\OneDrive - Reichman University\Desktop\progSys-C\Git\usr\bin\bash\sh.exe' --login
+==> usr/bin/bash/ --login -i
+==> 'C:\Program Files\Git\bin\sh.exe' --login
+
+==> ssh-keygen -R sysprog.runi.ac.il
+==> pico ~/.ssh/known_hosts
+
+
+==> ssh-keygen -f "/home/ybo/.ssh/known_hosts" -R "194.153.101.24"
+
+
+
+Host key for:
+<a href="http://sysprog.runi.ac.il/" target="_blank" rel="noopener noreferrer"> sysprog.runi.ac.il </a> 
+has changed and you have requested strict checking.
+Host key verification failed.
+
+
+// Command for connect ssh server
+{
+    To answer your literal question: 
+    To find an IP address and a port number of the current session:
+    Right click PuTTY console window title;
+    Select <Event Log>
+    The very first entry in the log says:
+    Connecting to <ip> port <port>
+}
+
+// Find IP
+{
+    -> Open Putty
+    -> Right click PuTTY console window title
+    -> Event Load
+    -> See the Port Field
+}
+
+// My_example_message_when_connect_to_the_server
+{
+    Warning: Identity file /home/yitzhak.baror not accessible: No such file or directory.
+    The authenticity of host '194.153.101.24 (194.153.101.24)' can't be established.
+    ED25519 key fingerprint is SHA256:7MWyNi6o+t2Uo2CdXmgN5atX2TkUEfq36VguWuioOTc.
+    This key is not known by any other names
+    Are you sure you want to continue connecting (yes/no/[fingerprint])? 
+    ==> y
+    
+    Please type 'yes', 'no' or the fingerprint: 
+    ==> yes
+
+    Warning: Permanently added '194.153.101.24' (ED25519) to the list of known hosts.
+    yitzhak.baror@194.153.101.24's password: 
+    ==> <PASSWORD>
+
+    Welcome to Ubuntu 22.04.4 LTS (GNU/Linux 5.15.0-107-generic x86_64)
+
+    * Documentation:  https://help.ubuntu.com
+    * Management:     https://landscape.canonical.com
+    * Support:        https://ubuntu.com/pro
+
+    System information as of Sat Jun 15 04:00:27 PM IDT 2024
+
+    System load:  0.0                Processes:               296
+    Usage of /:   17.9% of 93.83GB   Users logged in:         12
+    Memory usage: 35%                IPv4 address for ens160: 172.16.1.94
+    Swap usage:   7%
+
+    * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+    just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+    https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+    Expanded Security Maintenance for Applications is not enabled.
+
+    0 updates can be applied immediately.
+
+    Enable ESM Apps to receive additional future security updates.
+    See https://ubuntu.com/esm or run: sudo pro status
+
+
+    *** System restart required ***
+    Last login: Sat Jun 15 15:51:52 2024 from 87.70.86.190
+    yitzhak.baror@sysproglinux:~$ 
+    ls -l
+
+    total 12
+    drwxr-xr-x 12 yitzhak.baror students 4096 Jun 10 14:50 classes
+    drwx--x--x  8 yitzhak.baror students 4096 Jun 14 15:23 exercises
+    drwxr-xr-x 10 yitzhak.baror students 4096 May 31 10:24 recitations
+    yitzhak.baror@sysproglinux:~$
+}
+
+// Details
+{
+    -nlput | grep sshd
+    -nlput | grep sshd
+}
+
+// Exit - How do I exit an SSH connection?
+{
+    Two ways:
+    1) closing the shell session will usually exit, for example:
+        with the shell builtin command (followed by Enter):
+        ==> exit
+
+    2) Ctrl-d
+    (end-of-file) in the case where you have a bad connection and the shell is unresponsive, 
+    hit the Enter key, then type ~. 
+    and ssh should immediately close and return you to your command prompt.
+    
+    The first option should be intuitive, but how do we know the latter option?
+    We could learn this information from a careful reading of the man page.
+    $ man ssh
+}
+
+// fix_problem
+{
+    ==> ssh yitzhak.baror@194.153.101.24 -p 22 -i /home
+    The authenticity of host '194.153.101.24 (194.153.101.24)' can't be established.
+    ECDSA key fingerprint is SHA256:lWOVsH8Ria31DoB1mARfhrHt8Y0LRPYh6NSoWNT8LPU.
+    Are you sure you want to continue connecting (yes/no/[fingerprint])? 
+    ==> yes
+    Warning: Permanently added '194.153.101.24' (ECDSA) to the list of known hosts.
+    Load key "/home": Is a directory
+    yitzhak.baror@194.153.101.24's password: 
+    Last login: Thu Jul 25 20:21:17 2024 from 185.185.133.188
+    yitzhak.baror@sysproglinux:~$ ls
+    classes  exercises  recitations
+    yitzhak.baror@sysproglinux:~$ ls -l
+}
+
+
+

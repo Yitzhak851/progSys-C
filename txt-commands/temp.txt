@@ -1,0 +1,29 @@
+
+The fingerprint for the ECDSA key sent by the remote host is: SHA256:lWOVsH8Ria31DoB1mARfhrHt8Y0LRPYh6NSoWNT8LPU.
+Add correct host key in /home/ybo/.ssh/known_hosts 
+To get rid of this message.
+Offending ECDSA key in /home/ybo/.ssh/known_hosts:1
+  remove with:
+  ssh-keygen -f "/home/ybo/.ssh/known_hosts" -R "194.153.101.24"
+ECDSA host key for 194.153.101.24 has changed and you have requested strict checking.
+Host key verification failed.
+
+
+
+
+Host key for <a href="http://sysprog.runi.ac.il/" target="_blank" rel="noopener noreferrer">sysprog.runi.ac.il</a> has changed and you have requested strict checking.
+Host key verification failed.
+run code snippetVisit Manage Class to disable runnable code snippets
+Then, first, try to simply remove the key for the course server from your local machine by executing the following command:
+
+
+
+If this works, then SSH will tell you to re-approve the remote host (sysprog.runi.ac.il) and you just need to type "yes".
+If you still get an error message similar to the above, 
+then you need to edit the file ~/.ssh/known_hosts on your computer (using pico or any other text editor).
+===> pico ~/.ssh/known_hosts
+In the file, find the line where sysprog.runi.ac.il is mentioned, and delete it. 
+The number of line should be mentioned in the error message that you get when you try to SSH (Offending ECDSA key in ~/.ssh/known_hosts:<NUMLINE>).
+If you still can't make it work, then post a message to Piazza and we'll help you out. 
+Sorry for the extra trouble.
+--Ilan

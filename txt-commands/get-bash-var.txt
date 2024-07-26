@@ -1,0 +1,27 @@
+// Command `printenv` at ssh server
+{
+    SHELL=/bin/bash
+    LANGUAGE=en_US:en
+    PWD=/home/yitzhak.baror
+    LOGNAME=yitzhak.baror
+    XDG_SESSION_TYPE=tty
+    MOTD_SHOWN=pam
+    HOME=/home/yitzhak.baror
+    LANG=en_US.UTF-8
+    SSH_CONNECTION=176.12.147.162 45919 172.16.1.94 22
+    XDG_SESSION_CLASS=user
+    TERM=xterm-256color
+    USER=yitzhak.baror
+    SHLVL=1
+    XDG_SESSION_ID=8087
+    XDG_RUNTIME_DIR=/run/user/2171
+    SSH_CLIENT=176.12.147.162 45919 22
+    XDG_DATA_DIRS=/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+    PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+    DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/2171/bus
+    SSH_TTY=/dev/pts/5
+    _=/usr/bin/printenv
+    OLDPWD=/share/ex_sol/ex3
+}
+
+
