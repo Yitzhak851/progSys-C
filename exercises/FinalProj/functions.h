@@ -41,15 +41,12 @@
 Date *createDate(int Year, int Month, int Day, int Hour, int Min);
 void printDate(Date *date);
 void freeDate(Date *date);
-// Functions for the Doc struct
+// ################################ ================== Functions for the Doc struct ================== ################################
 Doc *createDoc(char *Name, char *nLicense, int nPatients);
 void printDoc(Doc *doc);
 void freeDoc(Doc *doc);
 ll *loadDoctors(FILE *fDoctors);  // new function
-
-
-
-// Functions for the Visit struct
+// ################################ ================== Functions for the Visit struct ================== ################################
 Visit *createVisit(Date *tArrival, Date *tDismissed, float Duration, Doc *Doctor, char *vSummary);
 void printVisit(Visit *visit);
 void freeVisit(Visit *visit);
@@ -57,32 +54,28 @@ void freeVisit(Visit *visit);
 Stack *createStack(Visit *visit);
 void printStack(Stack *stack);
 void freeStack(Stack *stack);
-
 // ################################ ================== Functions for the Patient struct ================== ################################
 Patient *createPatient(char *Name, char *ID, char Allergies, Stack *Visits, int nVisits);
 void printPatient(Patient *patient);
 void freePatient(Patient *patient);
 ll *loadPatients(Doc *doc, FILE *fPatients);  // new function
-
-
-
-// Functions for the plnTree struct
+// ################################ ================== Functions for the plnTree struct ================== ################################
 plnTree *createPlnTree(Patient *tpatient);
 void printPlnTree(plnTree *myTree);
 void freePlnTree(plnTree *myTree);
-// Functions for the pTree struct
+// ################################ ================== Functions for the pTree struct ================== ################################
 pTree *createPTree(plnTree *myTree);
 void printPTree(pTree *myTree);
 void freePTree(pTree *myTree);
-// Functions for the plnLine struct
+// ################################ ================== Functions for the plnLine struct ================== ################################
 plnLine *createPlnLine(Patient *lpatient);
 void printPlnLine(plnLine *myLine);
 void freePlnLine(plnLine *myLine);
-// Functions for the pLine struct
+// ################################ ================== Functions for the pLine struct ================== ################################
 pLine *createPLine(plnLine *myLine);
 void printPLine(pLine *myLine);
 void freePLine(pLine *myLine);
-// Functions for the ll struct
+// ################################ ================== Functions for the ll struct ================== ################################
 ll *createLL(Doc *doc);
 void printLL(ll *myList);
 void freeLL(ll *myList);
