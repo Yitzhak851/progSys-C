@@ -3,7 +3,7 @@
 Hello everyone , <br>
 This 'repository' contain my progSys-C (course) H.W, <br>
 At the course we work on excersices at linux and C language. <br> 
-Good luck!! 👩‍💻🧙‍♂️🚀👩‍💻🔥
+Good luck!! 👩‍💻🧙‍♂️🚀👩‍💻🔥<br>
 
 adding small change for test
 
