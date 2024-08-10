@@ -1,0 +1,35 @@
+# bluetoothctl: Handling bluetooth devices from the shell.
+
+==> TLDR:
+
+$ bluetoothctl : Enter the bluetoothctl shell
+
+$ bluetoothctl devices : List all known devices
+
+$ bluetoothctl power [on|off] : Power the Bluetooth controller on or off
+
+$ bluetoothctl pair [mac_address] : Pair with a device
+
+$ bluetoothctl remove [mac_address] : Remove a device
+
+$ bluetoothctl connect [mac_address] : Connect to a paired device
+
+$ bluetoothctl disconnect [mac_address] : Disconnect from a paired device
+
+$ bluetoothctl help : Display help
+
+
+==> DESCRIPTION
+
+$ bluetoothctl ver 5.49 Usage: 
+
+$ bluetoothctl [options]
+
+==> OPTIONS
+    --agent : Register agent handler: <capability>
+
+    --timeout : Timeout in seconds for non-interactive mode
+
+    --version : Display version
+
+    --help : Display help
