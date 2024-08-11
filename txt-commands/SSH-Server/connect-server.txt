@@ -1,6 +1,7 @@
 ==> ssh yitzhak.baror@194.153.101.24 -p 22 -i /home/yitzhak.baror
 ==> ssh yitzhak.baror@194.153.101.24 -p 22 -i /home
 
+// the ip of the server
 194.153.101.24
 
 ==> ssh <your-user-name>@<server-public-IP-address> -p <port-number> -i <your-local-ssh-private-key-name>
