@@ -1,0 +1,4 @@
+# FLOW - of gcc
+
+==> gcc [SOURCE_FILE-01_NAME.c] -o [DESTINATION_FILE_NAME.out/exe]
+==> gcc [SOURCE_FILE-01_NAME.c] [SOURCE_FILE-02_NAME.c] [SOURCE_FILE-03_NAME.c] -Wall -D TEST_1_1 -o test_ex6_1_1
