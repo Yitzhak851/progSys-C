@@ -8,6 +8,7 @@
 *  -----------
 *  A program that implements the GradeList data structure's functions
 *  that holds a list of grades
+*  end
 *************************************************/
 
 GradeNode newGradeNode(const char* firstName, const char* lastName, int grade){
