@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
+// var
 #define MAX_CHARS_INPUT_LINE 200
 
 int countWords(const char* str);
