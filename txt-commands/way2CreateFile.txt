@@ -1,20 +1,19 @@
-4 Ways to Create a Text File in Linux Terminal:
+## 4 Ways to Create a Text File in Linux Terminal: ## 
 
-1. touch filename.txt
+    1. touch 'filename.txt'
 
-2. echo “Your text content here” > filename.txt
+    2. echo “Your text content here” > filename.txt
 
-3. cat > filename.txt
+    3. cat > filename.txt
 
-4. Using a text editor:
-    
-    pico myFile.txt
-    vim myFile.txt
-    nano myFile.txt
-    emacs myFile.txt
+    4. Using a text editor:
+        pico myFile.txt
+        vim myFile.txt
+        nano myFile.txt
+        emacs myFile.txt
 
-    apt-get install pico
-    apt-get install vim
-    apt-get install nano 
-    apt-get install emacs
+            apt-get install pico
+            apt-get install vim
+            apt-get install nano 
+            apt-get install emacs
 
