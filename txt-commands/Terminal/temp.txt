@@ -1,0 +1,6 @@
+// Terminal commands at Windows
+
+open run Windows - win + R
+open command line - cmd 
+open wlan - ntsh ...
+
