@@ -1,5 +1,5 @@
     #include <stdio.h>
-
+// this food return sum of 2 int num
     int sum(int a, int b) {
     return a+b;
     }
